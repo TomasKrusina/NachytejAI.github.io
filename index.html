@@ -12,1242 +12,1211 @@
             --zs-color: #2ecc71;
             --ss-color: #e67e22;
             --bg: #f4f7f6;
-            --text: #333;
+            --card-radius: 14px;
+            --shadow: 0 4px 24px rgba(26,42,108,0.10);
         }
-        html { height: 100%; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--bg); color: var(--text); scroll-behavior: smooth; min-height: 100vh; display: flex; flex-direction: column; }
-        .hero { background: linear-gradient(135deg, var(--primary) 0%, #2d1b69 40%, #b21f1f 100%); color: white; padding: 70px 20px 60px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: relative; overflow: hidden; }
-        .hero-atom { margin-bottom: 18px; display: block; line-height: 1; }
-        .hero-atom svg { filter: drop-shadow(0 0 18px rgba(0,210,255,0.5)); }
-        .hero h1 { font-size: 3.2rem; margin: 0 0 6px 0; letter-spacing: -1px; }
-        .hero-sub { font-size: 1.05rem; opacity: 0.75; margin: 0 0 6px 0; letter-spacing: 3px; text-transform: uppercase; font-weight: 400; }
-        .hero p { font-size: 1.15rem; opacity: 0.88; margin: 0; }
-        .selector-buttons { display: flex; justify-content: center; gap: 25px; margin-top: 38px; }
-        .btn-choice { padding: 18px 45px; font-size: 1.3rem; border: none; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-weight: bold; color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .btn-zs { background-color: var(--zs-color); }
-        .btn-ss { background-color: var(--ss-color); }
-        .btn-choice:hover { transform: translateY(-8px); filter: brightness(1.1); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
-        .container { display: flex; max-width: 1400px; margin: 40px auto; gap: 40px; padding: 0 25px; }
-        aside { flex: 1; position: sticky; top: 25px; height: fit-content; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-height: 90vh; overflow-y: auto; }
-        aside h2 { font-size: 1.4rem; color: var(--primary); margin-bottom: 20px; border-bottom: 3px solid var(--accent); padding-bottom: 10px; }
-        aside ul { list-style: none; padding: 0; margin: 0; }
-        aside li { margin: 8px 0; }
-        aside a { text-decoration: none; color: #666; font-size: 0.95rem; transition: 0.3s; display: block; padding: 4px 0; }
-        aside a:hover { color: var(--secondary); transform: translateX(5px); }
-        .rocnik-label { font-weight: bold; color: var(--ss-color); margin-top: 20px; display: block; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
-        .rocnik-label.zs-label { color: var(--zs-color); }
-        main { flex: 3; }
-        .card { background: white; padding: 40px; border-radius: 25px; margin-bottom: 35px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border-left: 8px solid var(--secondary); position: relative; overflow: hidden; }
-        .card h2 { color: var(--primary); font-size: 1.8rem; margin-top: 0; }
-        .card h3 { color: var(--primary); margin-top: 25px; font-size: 1.2rem; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-        .badge { position: absolute; top: 20px; right: 20px; padding: 6px 18px; border-radius: 50px; color: white; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
-        .badge-ss { background: var(--ss-color); }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #222;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #1a2a6c 0%, #2d1b69 50%, #b21f1f 100%);
+            padding: 56px 24px 52px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 70% 30%, rgba(0,210,255,0.13) 0%, transparent 60%),
+            radial-gradient(ellipse at 20% 80%, rgba(253,187,45,0.10) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .atom-icon {
+            filter: drop-shadow(0 0 18px rgba(0,210,255,0.7)) drop-shadow(0 0 6px rgba(253,187,45,0.5));
+            margin-bottom: 14px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-subtitle {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            color: #fff;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+        }
+        .hero-desc {
+            color: rgba(255,255,255,0.87);
+            font-size: 1.05rem;
+            max-width: 560px;
+            margin: 0 auto 28px;
+            line-height: 1.6;
+        }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-zs, .btn-ss {
+            padding: 13px 34px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.22s cubic-bezier(.34,1.56,.64,1), box-shadow 0.18s;
+            font-family: inherit;
+            letter-spacing: 0.02em;
+        }
+        .btn-zs { background: var(--zs-color); color: #fff; box-shadow: 0 4px 18px rgba(46,204,113,0.35); }
+        .btn-ss { background: var(--ss-color); color: #fff; box-shadow: 0 4px 18px rgba(230,126,34,0.35); }
+        .btn-zs:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(46,204,113,0.45); }
+        .btn-ss:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(230,126,34,0.45); }
+
+        /* MAIN LAYOUT */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            gap: 0;
+            padding-bottom: 64px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            min-width: 200px;
+            background: #fff;
+            border-right: 1px solid #e8edf5;
+            padding: 24px 0 24px;
+            position: sticky;
+            top: 0;
+            height: 90vh;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: none;
+            flex-direction: column;
+        }
+        .sidebar.active { display: flex; }
+        .sidebar-title {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            color: var(--primary);
+            padding: 0 20px 10px;
+            border-bottom: 2px solid var(--bg);
+            margin-bottom: 8px;
+        }
+        .sidebar-year {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 10px 20px 4px;
+        }
+        .sidebar-year.zs { color: var(--zs-color); }
+        .sidebar-year.ss { color: var(--ss-color); }
+        .sidebar a {
+            display: block;
+            padding: 6px 20px;
+            font-size: 0.875rem;
+            color: #444;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.15s;
+            line-height: 1.4;
+        }
+        .sidebar a:hover { color: var(--primary); background: #f0f4ff; border-left-color: var(--secondary); }
+
+        /* CONTENT */
+        .content {
+            flex: 1;
+            padding: 32px 28px 40px;
+            display: none;
+        }
+        .content.active { display: block; }
+
+        /* WELCOME */
+        .welcome {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .welcome h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .welcome p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 0.5rem;
+        }
+
+        /* CARDS */
+        .card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            border-left: 8px solid var(--secondary);
+            padding: 28px 28px 24px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-badge {
+            position: absolute;
+            top: 14px; right: 16px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            color: #fff;
+        }
         .badge-zs { background: var(--zs-color); }
-        .formula { display: block; background: #fff8f0; border: 2px dashed #f0b060; padding: 18px 20px; text-align: center; font-family: 'Courier New', monospace; font-size: 1.4rem; margin: 15px 0; color: #d32f2f; border-radius: 15px; }
-        .formula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
-        .formula-small { display: block; background: #fff8f0; border: 2px dashed #f0b060; padding: 12px; text-align: center; font-family: 'Courier New', monospace; font-size: 1.1rem; color: #d32f2f; border-radius: 12px; }
-        .formula-label { font-size: 0.75rem; color: #888; display: block; margin-top: 4px; font-family: sans-serif; }
-        .example-box { background: #f0faff; border-left: 5px solid var(--secondary); padding: 20px 25px; margin-top: 20px; border-radius: 0 15px 15px 0; }
-        .example-box strong { color: var(--primary); display: block; margin-bottom: 8px; font-size: 1.05rem; }
-        .tip-box { background: #fffbe6; border-left: 5px solid var(--accent); padding: 20px 25px; margin-top: 15px; border-radius: 0 15px 15px 0; }
-        .tip-box strong { color: #b8860b; display: block; margin-bottom: 8px; }
-        .warning-box { background: #fff0f0; border-left: 5px solid #e74c3c; padding: 20px 25px; margin-top: 15px; border-radius: 0 15px 15px 0; }
-        .warning-box strong { color: #c0392b; display: block; margin-bottom: 8px; }
-        .key-facts { background: #f0fff4; border: 1px solid #a8dbb8; border-radius: 15px; padding: 20px 25px; margin-top: 15px; }
-        .key-facts h4 { color: #27ae60; margin: 0 0 10px 0; font-size: 1rem; }
-        .key-facts ul { margin: 0; padding-left: 20px; }
-        .key-facts li { margin: 6px 0; font-size: 0.95rem; }
-        table.physics-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.95rem; }
-        table.physics-table th { background: var(--primary); color: white; padding: 10px 14px; text-align: left; }
-        table.physics-table td { padding: 9px 14px; border-bottom: 1px solid #eee; }
-        table.physics-table tr:nth-child(even) { background: #f9f9f9; }
-        .hidden { display: none; }
-        max-width: 1400px; margin: 40px auto; gap: 40px; padding: 0 25px; width: 100%; box-sizing: border-box; }
-        footer { padding: 24px 20px; color: #aaa; font-size: 0.88rem; background: #fff; border-top: 1px solid #eee; position: fixed; bottom: 0; left: 0; right: 0; }
-        footer p { margin: 0; text-align: center; width: 100%; }
-        body.content-open footer { position: static; margin-top: 40px; }
-        @media (max-width: 1000px) { .container { flex-direction: column; } aside { position: relative; top: 0; max-height: none; } .hero h1 { font-size: 2.2rem; } .formula-grid { grid-template-columns: 1fr; } }
+        .badge-ss { background: var(--ss-color); }
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.22rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            padding-right: 80px;
+        }
+        .card p { font-size: 0.97rem; color: #444; line-height: 1.65; margin-bottom: 10px; }
+
+        /* FORMULA */
+        .formula {
+            font-family: 'Courier New', monospace;
+            color: #c0392b;
+            background: #fff8f0;
+            border: 1.5px dashed #e67e22;
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin: 10px 0;
+            font-size: 1.05rem;
+            display: inline-block;
+        }
+        .formula-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .formula-item {
+            background: #fff8f0;
+            border: 1px dashed #e67e22;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.92rem;
+            color: #c0392b;
+        }
+        .formula-item .label {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.75rem;
+            color: #888;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* TABLES */
+        .physics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .physics-table thead tr { background: var(--primary); color: #fff; }
+        .physics-table th { padding: 9px 14px; font-weight: 600; text-align: left; }
+        .physics-table td { padding: 8px 14px; border-bottom: 1px solid #eef0f6; }
+        .physics-table tbody tr:nth-child(even) { background: #f5f7ff; }
+        .physics-table tbody tr:hover { background: #eef3ff; }
+
+        /* BOXES */
+        .box { border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.93rem; line-height: 1.6; }
+        .box strong { display: block; margin-bottom: 4px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
+        .box-tip { background: #fffbe6; border-left: 4px solid var(--accent); }
+        .box-tip strong { color: #b8860b; }
+        .box-example { background: #f0faff; border-left: 4px solid var(--secondary); }
+        .box-example strong { color: #0077a8; }
+        .box-warning { background: #fff0f0; border-left: 4px solid #e74c3c; }
+        .box-warning strong { color: #c0392b; }
+        .box-keyfacts { background: #f0fff4; border-left: 4px solid var(--zs-color); }
+        .box-keyfacts strong { color: #27ae60; }
+
+        /* FOOTER */
+        footer {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: #fff;
+            border-top: 1px solid #e0e6ef;
+            padding: 10px 0;
+            z-index: 100;
+            font-size: 0.82rem;
+            color: #777;
+        }
+        footer p { text-align: center; width: 100%; }
+        body.content-open footer { position: static; margin-top: auto; }
+
+        /* SECTION ANCHORS */
+        section { scroll-margin-top: 20px; }
+
+        /* SCROLLBAR */
+        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar-track { background: #f4f7f6; }
+        .sidebar::-webkit-scrollbar-thumb { background: #c5cfe0; border-radius: 3px; }
+
+        @media (max-width: 700px) {
+            .main-layout { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; max-height: none; position: static; border-right: none; border-bottom: 1px solid #e0e6ef; }
+            .formula-grid { grid-template-columns: 1fr; }
+            .card { padding: 18px 14px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="hero">
-  <span class="hero-atom">
-    <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-      <!-- Nucleus -->
-      <circle cx="40" cy="40" r="7" fill="#fdbb2d"/>
-        <!-- Orbit 1 -->
-      <ellipse cx="40" cy="40" rx="34" ry="13" fill="none" stroke="rgba(0,210,255,0.7)" stroke-width="2"/>
-        <!-- Orbit 2 -->
-      <ellipse cx="40" cy="40" rx="34" ry="13" fill="none" stroke="rgba(0,210,255,0.55)" stroke-width="2" transform="rotate(60 40 40)"/>
-        <!-- Orbit 3 -->
-      <ellipse cx="40" cy="40" rx="34" ry="13" fill="none" stroke="rgba(0,210,255,0.55)" stroke-width="2" transform="rotate(120 40 40)"/>
-        <!-- Electrons -->
-      <circle cx="74" cy="40" r="3.5" fill="white"/>
-      <circle cx="23" cy="28" r="3.5" fill="white" transform="rotate(60 40 40)"/>
-      <circle cx="23" cy="28" r="3.5" fill="white" transform="rotate(120 40 40)"/>
+<!-- HERO -->
+<header class="hero">
+    <svg class="atom-icon" width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <!-- Orbity -->
+        <ellipse cx="40" cy="40" rx="36" ry="14" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+        <ellipse cx="40" cy="40" rx="36" ry="14" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" transform="rotate(60 40 40)"/>
+        <ellipse cx="40" cy="40" rx="36" ry="14" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" transform="rotate(120 40 40)"/>
+        <!-- Elektrony -->
+        <circle cx="76" cy="40" r="3.5" fill="white"/>
+        <circle cx="22" cy="27" r="3.5" fill="white" transform="rotate(60 40 40)"/>
+        <circle cx="22" cy="27" r="3.5" fill="white" transform="rotate(120 40 40)"/>
+        <!-- Jádro -->
+        <circle cx="40" cy="40" r="7" fill="#fdbb2d"/>
+        <circle cx="40" cy="40" r="4.5" fill="#f39c12"/>
     </svg>
-  </span>
-    <p class="hero-sub">studijní průvodce pro ZŠ a SŠ</p>
+    <p class="hero-subtitle">studijní průvodce pro ZŠ a SŠ</p>
     <h1>⚛️ Fyzika do Kapsy</h1>
-    <p>Vzorce, pojmy a tipy přehledně – ideální před testem i při opakování</p>
-    <div class="selector-buttons">
-        <button class="btn-choice btn-zs" onclick="showSection('zs')">Základní škola</button>
-        <button class="btn-choice btn-ss" onclick="showSection('ss')">Střední škola</button>
+    <p class="hero-desc">Vzorce, pojmy a tipy přehledně – ideální před testem i při opakování</p>
+    <div class="hero-btns">
+        <button class="btn-zs" onclick="showSection('zs')">Základní škola</button>
+        <button class="btn-ss" onclick="showSection('ss')">Střední škola</button>
     </div>
-</div>
+</header>
 
-<div class="container" style="flex:1; display:flex; max-width:1400px; margin:40px auto; gap:40px; padding:0 25px; width:100%; box-sizing:border-box; align-items:flex-start;">
+<!-- MAIN LAYOUT -->
+<div class="main-layout" id="mainLayout">
 
-    <!-- SIDEBAR ZŠ -->
-    <aside id="sidebar-zs" class="hidden">
-        <h2>Učivo ZŠ</h2>
-        <span class="rocnik-label zs-label">6. ROČNÍK</span>
-        <ul>
-            <li><a href="#zs6-latky">Látky a tělesa</a></li>
-            <li><a href="#zs6-el-vlast">Elektrické vlastnosti látek</a></li>
-            <li><a href="#zs6-mag-vlast">Magnetické vlastnosti látek</a></li>
-            <li><a href="#zs6-delka">Měření délky</a></li>
-            <li><a href="#zs6-objem">Měření objemu</a></li>
-            <li><a href="#zs6-hmotnost">Měření hmotnosti</a></li>
-            <li><a href="#zs6-hustota">Hustota</a></li>
-            <li><a href="#zs6-cas">Měření času</a></li>
-            <li><a href="#zs6-teplota">Měření teploty</a></li>
-            <li><a href="#zs6-proud">Elektrický proud</a></li>
-            <li><a href="#zs6-spotrebice">Tepelné spotřebiče</a></li>
-            <li><a href="#zs6-magnpole">Magnetické pole proudu</a></li>
-            <li><a href="#zs6-obvod">Rozvětvený obvod</a></li>
-        </ul>
-        <span class="rocnik-label zs-label">7. ROČNÍK</span>
-        <ul>
-            <li><a href="#zs7-jednotky">Převádění jednotek</a></li>
-            <li><a href="#zs7-pohyb">Pohyb tělesa</a></li>
-            <li><a href="#zs7-sila">Síla a její měření</a></li>
-            <li><a href="#zs7-skladani">Skládání a rozkládání sil</a></li>
-            <li><a href="#zs7-zakony">Pohybové zákony</a></li>
-            <li><a href="#zs7-otaceni">Otáčivé účinky síly</a></li>
-            <li><a href="#zs7-deformace">Deformační účinky</a></li>
-            <li><a href="#zs7-treni">Tření</a></li>
-            <li><a href="#zs7-kapaliny">Mech. vlastnosti kapalin</a></li>
-            <li><a href="#zs7-plyny">Mech. vlastnosti plynů</a></li>
-        </ul>
-        <span class="rocnik-label zs-label">8. ROČNÍK</span>
-        <ul>
-            <li><a href="#zs8-veliciny">Veličiny a jednotky</a></li>
-            <li><a href="#zs8-prace">Práce a energie</a></li>
-            <li><a href="#zs8-teplo">Vnitřní energie, teplo</a></li>
-            <li><a href="#zs8-skupenstvi">Změna skupenství</a></li>
-            <li><a href="#zs8-naboj">El. náboj, el. pole</a></li>
-            <li><a href="#zs8-proud">Elektrický proud (8.r.)</a></li>
-            <li><a href="#zs8-zvuk">Zvukové jevy</a></li>
-        </ul>
-        <span class="rocnik-label zs-label">9. ROČNÍK</span>
-        <ul>
-            <li><a href="#zs9-elmag">Elektromagnetické jevy</a></li>
-            <li><a href="#zs9-stridavy">Střídavý proud</a></li>
-            <li><a href="#zs9-vedeni">Vedení proudu v kap. a plynech</a></li>
-            <li><a href="#zs9-zareni">Elektromagnetické záření</a></li>
-            <li><a href="#zs9-sireni">Přímočaré šíření světla</a></li>
-            <li><a href="#zs9-odraz">Odraz světla</a></li>
-            <li><a href="#zs9-lom">Lom světla</a></li>
-            <li><a href="#zs9-energie">Energie a přeměny</a></li>
-            <li><a href="#zs9-vesmir">Země a vesmír</a></li>
-        </ul>
-    </aside>
+    <!-- WELCOME -->
+    <div class="welcome" id="welcome">
+        <h2>Vyberte si úroveň studia výše</h2>
+        <p>Zobrazí se příslušné učivo, vzorce a tabulky.</p>
+    </div>
 
-    <!-- SIDEBAR SŠ -->
-    <aside id="sidebar-ss" class="hidden">
-        <h2>Učivo SŠ</h2>
-        <span class="rocnik-label">1. ROČNÍK</span>
-        <ul>
-            <li><a href="#ss1-veliciny">Veličiny a jednotky</a></li>
-            <li><a href="#ss1-kinematika">Kinematika</a></li>
-            <li><a href="#ss1-dynamika">Dynamika</a></li>
-            <li><a href="#ss1-tekutiny">Mechanika tekutin</a></li>
-        </ul>
-        <span class="rocnik-label">2. ROČNÍK</span>
-        <ul>
-            <li><a href="#ss2-mol">Molekulová fyzika</a></li>
-            <li><a href="#ss2-kmitani">Kmitání a vlnění</a></li>
-        </ul>
-        <span class="rocnik-label">3. ROČNÍK</span>
-        <ul>
-            <li><a href="#ss3-elektro">Elektřina a proud</a></li>
-            <li><a href="#ss3-magn">Magnetické pole</a></li>
-        </ul>
-        <span class="rocnik-label">4. ROČNÍK</span>
-        <ul>
-            <li><a href="#ss4-optika">Optika</a></li>
-            <li><a href="#ss4-relativita">Teorie relativity</a></li>
-            <li><a href="#ss4-mikro">Fyzika mikrosvěta</a></li>
-        </ul>
-    </aside>
+    <!-- ZŠ SIDEBAR -->
+    <nav class="sidebar" id="sidebar-zs">
+        <div class="sidebar-title">Učivo ZŠ</div>
+        <div class="sidebar-year zs">6. ročník</div>
+        <a href="#zs-latky">Látky a tělesa</a>
+        <a href="#zs-elektrvlast">Elektrické vlastnosti látek</a>
+        <a href="#zs-magnvlast">Magnetické vlastnosti</a>
+        <a href="#zs-delka">Měření délky</a>
+        <a href="#zs-objem">Měření objemu</a>
+        <a href="#zs-hmotnost">Měření hmotnosti</a>
+        <a href="#zs-hustota">Hustota</a>
+        <a href="#zs-cas">Měření času</a>
+        <a href="#zs-teplota">Měření teploty</a>
+        <a href="#zs-proud">Elektrický proud</a>
+        <a href="#zs-tepelne">Tepelné spotřebiče</a>
+        <a href="#zs-magnpole">Magnetické pole proudu</a>
+        <a href="#zs-obvod">Rozvětvený obvod</a>
+        <div class="sidebar-year zs">7. ročník</div>
+        <a href="#zs-jednotky7">Převádění jednotek</a>
+        <a href="#zs-pohyb">Pohyb tělesa</a>
+        <a href="#zs-sila">Síla</a>
+        <a href="#zs-skladani">Skládání sil</a>
+        <a href="#zs-newton">Newtonovy zákony</a>
+        <a href="#zs-moment">Moment síly</a>
+        <a href="#zs-deformace">Deformace</a>
+        <a href="#zs-treni">Tření</a>
+        <a href="#zs-kapaliny">Kapaliny</a>
+        <a href="#zs-plyny">Plyny</a>
+        <div class="sidebar-year zs">8. ročník</div>
+        <a href="#zs-veliciny8">Veličiny a jednotky</a>
+        <a href="#zs-prace">Práce a energie</a>
+        <a href="#zs-teplo">Teplo</a>
+        <a href="#zs-skupenstvi">Skupenství látek</a>
+        <a href="#zs-naboj">El. náboj a pole</a>
+        <a href="#zs-proud8">Elektrický proud – rozšíření</a>
+        <a href="#zs-zvuk">Zvuk</a>
+        <div class="sidebar-year zs">9. ročník</div>
+        <a href="#zs-indukce">Elektromagnetická indukce</a>
+        <a href="#zs-stridavy">Střídavý proud</a>
+        <a href="#zs-vedeni">Vedení proudu</a>
+        <a href="#zs-zareni">Elektromagnetické záření</a>
+        <a href="#zs-svetlo">Přímočaré šíření světla</a>
+        <a href="#zs-odraz">Odraz světla</a>
+        <a href="#zs-lom">Lom světla</a>
+        <a href="#zs-energie9">Energie a přeměny</a>
+        <a href="#zs-vesmir">Země a vesmír</a>
+    </nav>
 
-    <main id="content-area">
-        <div id="welcome-msg" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 60px 20px; width:100%;">
-            <h2>Zvol si úroveň výše a začni studovat</h2>
-            <p>Najdeš zde přehledné karty se vzorci a tipy k testům.</p>
-        </div>
+    <!-- ZŠ CONTENT -->
+    <div class="content" id="content-zs">
 
-        <!-- ===================== OBSAH ZŠ ===================== -->
-        <div id="content-zs" class="hidden">
+        <!-- 6. ROČNÍK -->
+        <section id="zs-latky">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Látky a tělesa</h2>
+                <p><strong>Těleso</strong> je konkrétní kus hmoty (kámen, sklenice). <strong>Látka</strong> je materiál, ze kterého je těleso vyrobeno (sklo, kov, dřevo).</p>
+                <div class="box box-keyfacts"><strong>Klíčové pojmy</strong>Tuhé látky – zachovávají tvar. Kapaliny – přizpůsobují se tvaru nádoby. Plyny – vyplňují celý prostor.</div>
+            </div>
+        </section>
 
-            <!-- 6. ročník -->
-            <h2 style="color: var(--zs-color); font-size:1.5rem; margin-bottom: 10px;">📗 6. ročník</h2>
+        <section id="zs-elektrvlast">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Elektrické vlastnosti látek</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Typ</th><th>Vlastnost</th><th>Příklady</th></tr></thead>
+                    <tbody>
+                    <tr><td>Vodič</td><td>Dobře vede el. proud</td><td>Měď, hliník, železo, grafit</td></tr>
+                    <tr><td>Izolant</td><td>Nevede el. proud</td><td>Sklo, plast, guma, porcelán</td></tr>
+                    <tr><td>Polovodič</td><td>Vede za určitých podmínek</td><td>Křemík, germanium</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-            <section id="zs6-latky">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Látky a tělesa</h2>
-                    <p>Fyzika zkoumá vlastnosti <strong>látek</strong> (co je těleso vyrobeno) a <strong>těles</strong> (konkrétní předmět). Látky mohou být pevné, kapalné nebo plynné.</p>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové pojmy</h4>
-                        <ul>
-                            <li><strong>Těleso</strong> = konkrétní předmět (sklenice, kámen, auto)</li>
-                            <li><strong>Látka</strong> = materiál, ze kterého je těleso vyrobeno (sklo, železo, vzduch)</li>
-                            <li><strong>Skupenství</strong>: pevné / kapalné / plynné</li>
-                            <li>Látky se skládají z <strong>atomů</strong> a <strong>molekul</strong></li>
-                        </ul>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Tip na test:</strong> Nezaměňuj látku a těleso! Sklenice = těleso, sklo = látka. Voda = látka, řeka = těleso.
-                    </div>
+        <section id="zs-magnvlast">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Magnetické vlastnosti látek</h2>
+                <p><strong>Feromagnetické látky</strong> – silně přitahovány magnetem: železo, nikl, kobalt.</p>
+                <p><strong>Paramagnetické</strong> – slabě přitahovány: hliník, platina.</p>
+                <p><strong>Diamagnetické</strong> – slabě odpuzovány: měď, zlato, voda.</p>
+                <div class="box box-tip"><strong>Tip</strong>Každý magnet má dva póly – severní (N) a jižní (S). Stejné póly se odpuzují, různé přitahují.</div>
+            </div>
+        </section>
+
+        <section id="zs-delka">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Měření délky</h2>
+                <p>Základní jednotka: <strong>metr (m)</strong>. Měříme pravítkem, pásmem, posuvným měřítkem.</p>
+                <table class="physics-table">
+                    <thead><tr><th>Jednotka</th><th>Zkratka</th><th>Přepočet</th></tr></thead>
+                    <tbody>
+                    <tr><td>Kilometr</td><td>km</td><td>1 km = 1000 m</td></tr>
+                    <tr><td>Metr</td><td>m</td><td>základní</td></tr>
+                    <tr><td>Decimetr</td><td>dm</td><td>1 m = 10 dm</td></tr>
+                    <tr><td>Centimetr</td><td>cm</td><td>1 m = 100 cm</td></tr>
+                    <tr><td>Milimetr</td><td>mm</td><td>1 m = 1000 mm</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-objem">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Měření objemu</h2>
+                <p>Základní jednotka: <strong>metr krychlový (m³)</strong>. Kapaliny měříme odměrným válcem.</p>
+                <div class="formula">V = a · b · c &nbsp;&nbsp; (objem kvádru)</div>
+                <table class="physics-table">
+                    <thead><tr><th>Jednotka</th><th>Přepočet</th></tr></thead>
+                    <tbody>
+                    <tr><td>1 m³</td><td>1 000 000 cm³ = 1 000 dm³</td></tr>
+                    <tr><td>1 dm³ = 1 litr (l)</td><td>1 000 cm³</td></tr>
+                    <tr><td>1 cm³ = 1 ml</td><td>základní</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-hmotnost">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Měření hmotnosti</h2>
+                <p>Základní jednotka: <strong>kilogram (kg)</strong>. Měříme váhou.</p>
+                <table class="physics-table">
+                    <thead><tr><th>Jednotka</th><th>Přepočet</th></tr></thead>
+                    <tbody>
+                    <tr><td>1 t (tuna)</td><td>1 000 kg</td></tr>
+                    <tr><td>1 kg</td><td>1 000 g</td></tr>
+                    <tr><td>1 g</td><td>1 000 mg</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-warning"><strong>Pozor!</strong>Hmotnost (kg) ≠ Tíha (N). Tíha je síla, kterou Země přitahuje těleso. F<sub>G</sub> = m · g</div>
+            </div>
+        </section>
+
+        <section id="zs-hustota">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Hustota</h2>
+                <div class="formula">ρ = m / V</div>
+                <p>Hustota ρ [kg/m³], hmotnost m [kg], objem V [m³]</p>
+                <table class="physics-table">
+                    <thead><tr><th>Látka</th><th>Hustota (kg/m³)</th></tr></thead>
+                    <tbody>
+                    <tr><td>Vzduch</td><td>1,29</td></tr>
+                    <tr><td>Voda</td><td>1 000</td></tr>
+                    <tr><td>Hliník</td><td>2 700</td></tr>
+                    <tr><td>Železo</td><td>7 874</td></tr>
+                    <tr><td>Měď</td><td>8 960</td></tr>
+                    <tr><td>Zlato</td><td>19 300</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-cas">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Měření času</h2>
+                <p>Základní jednotka: <strong>sekunda (s)</strong>. Měříme hodinami, stopkami.</p>
+                <table class="physics-table">
+                    <thead><tr><th>Jednotka</th><th>Přepočet</th></tr></thead>
+                    <tbody>
+                    <tr><td>1 min</td><td>60 s</td></tr>
+                    <tr><td>1 hod</td><td>60 min = 3 600 s</td></tr>
+                    <tr><td>1 den</td><td>24 hod = 86 400 s</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-teplota">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Měření teploty</h2>
+                <div class="formula">T = t + 273 &nbsp;&nbsp; (převod °C → K)</div>
+                <table class="physics-table">
+                    <thead><tr><th>Jev</th><th>°C</th><th>K</th></tr></thead>
+                    <tbody>
+                    <tr><td>Absolutní nula</td><td>−273 °C</td><td>0 K</td></tr>
+                    <tr><td>Tání ledu</td><td>0 °C</td><td>273 K</td></tr>
+                    <tr><td>Tělesná teplota</td><td>37 °C</td><td>310 K</td></tr>
+                    <tr><td>Var vody</td><td>100 °C</td><td>373 K</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-proud">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Elektrický proud</h2>
+                <div class="formula">U = R · I &nbsp;&nbsp; (Ohmův zákon)</div>
+                <p>U – napětí [V], R – odpor [Ω], I – proud [A]</p>
+                <div class="box box-keyfacts"><strong>Části obvodu</strong>Zdroj (baterie, síť) → Vodiče → Spotřebič (žárovka, motor) → Spínač</div>
+            </div>
+        </section>
+
+        <section id="zs-tepelne">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Tepelné spotřebiče</h2>
+                <div class="formula">P = U · I &nbsp;&nbsp; (elektrický výkon)</div>
+                <table class="physics-table">
+                    <thead><tr><th>Spotřebič</th><th>Příkon (W)</th></tr></thead>
+                    <tbody>
+                    <tr><td>Žárovka</td><td>40–100 W</td></tr>
+                    <tr><td>Lednička</td><td>100–200 W</td></tr>
+                    <tr><td>Pračka</td><td>2 000–2 500 W</td></tr>
+                    <tr><td>Rychlovarná konvice</td><td>2 000–3 000 W</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-magnpole">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Magnetické pole proudu</h2>
+                <p>Vodič s elektrickým proudem vytváří kolem sebe <strong>magnetické pole</strong>.</p>
+                <div class="box box-example"><strong>Elektromagnet</strong>Cívka navinutá na železném jádru – využití v relé, jeřábech, reproduktorech, MRI. Zapnutím/vypnutím proudu lze magnetismus řídit.</div>
+                <div class="box box-tip"><strong>Pravidlo pravé ruky</strong>Palec ukazuje směr proudu, prsty ukazují směr magnetického pole kolem vodiče.</div>
+            </div>
+        </section>
+
+        <section id="zs-obvod">
+            <div class="card">
+                <span class="card-badge badge-zs">6. ročník</span>
+                <h2>Rozvětvený obvod</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Vlastnost</th><th>Sériové zapojení</th><th>Paralelní zapojení</th></tr></thead>
+                    <tbody>
+                    <tr><td>Napětí</td><td>Sečte se (U = U₁ + U₂)</td><td>Stejné (U = U₁ = U₂)</td></tr>
+                    <tr><td>Proud</td><td>Stejný (I = I₁ = I₂)</td><td>Sečte se (I = I₁ + I₂)</td></tr>
+                    <tr><td>Odpor</td><td>R = R₁ + R₂</td><td>1/R = 1/R₁ + 1/R₂</td></tr>
+                    <tr><td>Výhoda</td><td>Jednoduchost</td><td>Nezávislost spotřebičů</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 7. ROČNÍK -->
+        <section id="zs-jednotky7">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Převádění jednotek</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Předpona</th><th>Symbol</th><th>Násobek</th></tr></thead>
+                    <tbody>
+                    <tr><td>mega</td><td>M</td><td>10⁶</td></tr>
+                    <tr><td>kilo</td><td>k</td><td>10³</td></tr>
+                    <tr><td>deci</td><td>d</td><td>10⁻¹</td></tr>
+                    <tr><td>centi</td><td>c</td><td>10⁻²</td></tr>
+                    <tr><td>mili</td><td>m</td><td>10⁻³</td></tr>
+                    <tr><td>mikro</td><td>μ</td><td>10⁻⁶</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-pohyb">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Pohyb tělesa</h2>
+                <div class="formula">v = s / t</div>
+                <p>v – rychlost [m/s], s – dráha [m], t – čas [s]</p>
+                <table class="physics-table">
+                    <thead><tr><th>Druh pohybu</th><th>Popis</th></tr></thead>
+                    <tbody>
+                    <tr><td>Rovnoměrný přímočarý</td><td>Stejná rychlost, přímá trajektorie</td></tr>
+                    <tr><td>Nerovnoměrný</td><td>Mění se rychlost (zrychluje/zpomaluje)</td></tr>
+                    <tr><td>Rovnoměrný kruhový</td><td>Stálá rychlost, kruhová dráha</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-sila">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Síla</h2>
+                <div class="formula">F = m · g &nbsp;&nbsp; (tíhová síla)</div>
+                <p>F [N], m [kg], g ≈ 10 N/kg (tíhové zrychlení)</p>
+                <div class="box box-keyfacts"><strong>Druhy sil</strong>Tíhová síla · Třecí síla · Pružná síla · Magnetická síla · Elektrická síla · Vztlaková síla · Dostředivá síla</div>
+            </div>
+        </section>
+
+        <section id="zs-skladani">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Skládání sil</h2>
+                <p>Výslednice sil = celkový účinek více sil. Síly jsou vektory – mají velikost i směr.</p>
+                <div class="box box-example"><strong>Příklady</strong>Síly stejného směru: sečteme. Síly opačného směru: odečteme. Kolmé síly: Pythagorova věta (F² = F₁² + F₂²).</div>
+            </div>
+        </section>
+
+        <section id="zs-newton">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Newtonovy zákony</h2>
+                <div class="formula">F = m · a &nbsp;&nbsp; (2. Newtonův zákon)</div>
+                <div class="box box-keyfacts">
+                    <strong>Všechny tři zákony</strong>
+                    <strong>1. zákon (setrvačnosti):</strong> Těleso se pohybuje rovnoměrně přímočaře nebo je v klidu, dokud na něj nepůsobí výsledná síla.<br><br>
+                    <strong>2. zákon (síly):</strong> F = m · a – výsledná síla je rovna součinu hmotnosti a zrychlení.<br><br>
+                    <strong>3. zákon (akce a reakce):</strong> Každá akce vyvolává stejně velkou, ale opačně orientovanou reakci.
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="zs6-el-vlast">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Elektrické vlastnosti látek</h2>
-                    <p>Látky dělíme podle toho, jak vedou elektrický proud.</p>
-                    <table class="physics-table">
-                        <tr><th>Typ látky</th><th>Popis</th><th>Příklady</th></tr>
-                        <tr><td><strong>Vodiče</strong></td><td>Vedou el. proud dobře</td><td>Kovy (měď, hliník, železo), grafit</td></tr>
-                        <tr><td><strong>Izolanty</strong></td><td>Nevedou el. proud</td><td>Plast, guma, sklo, dřevo, vzduch</td></tr>
-                        <tr><td><strong>Polovodiče</strong></td><td>Vedou za určitých podmínek</td><td>Křemík, germanium</td></tr>
-                    </table>
-                    <div class="example-box">
-                        <strong>⚡ Proč jsou kabely obaleny plastem?</strong> Uvnitř je kovový drát (vodič), který vede proud. Plastový obal je izolant – chrání tě před elektrickým proudem.
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Tip na test:</strong> Elektrické nabití – tření způsobí přenos elektronů mezi tělesy → tělesa se naelektrizují (přitahují/odpuzují).
-                    </div>
+        <section id="zs-moment">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Moment síly – Páka</h2>
+                <div class="formula">M = F · d</div>
+                <p>M – moment síly [N·m], F – síla [N], d – rameno síly [m]</p>
+                <div class="box box-tip"><strong>Podmínka rovnováhy páky</strong>F₁ · d₁ = F₂ · d₂ (součet momentů = 0)</div>
+            </div>
+        </section>
+
+        <section id="zs-deformace">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Deformace – Hookův zákon</h2>
+                <div class="formula">F = k · x</div>
+                <p>F – pružná síla [N], k – tuhost pružiny [N/m], x – prodloužení [m]</p>
+                <div class="box box-example"><strong>Příklad</strong>Pružina s tuhostí k = 200 N/m protažená o 0,05 m působí silou F = 200 · 0,05 = 10 N.</div>
+            </div>
+        </section>
+
+        <section id="zs-treni">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Tření</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Typ tření</th><th>Popis</th><th>Příklad</th></tr></thead>
+                    <tbody>
+                    <tr><td>Klidové</td><td>Před začátkem pohybu</td><td>Tlačíte, ale nehnete</td></tr>
+                    <tr><td>Smykové</td><td>Při klouzání po povrchu</td><td>Brzdění auta</td></tr>
+                    <tr><td>Valivé</td><td>Při valení</td><td>Kolo, kulička</td></tr>
+                    <tr><td>Vzdušné (odpor)</td><td>V tekutinách</td><td>Padák, plavání</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-kapaliny">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Kapaliny</h2>
+                <div class="formula-grid">
+                    <div class="formula-item">F<sub>A</sub> = ρ · g · V<span class="label">Archimédova síla</span></div>
+                    <div class="formula-item">p = ρ · g · h<span class="label">Hydrostatický tlak</span></div>
+                    <div class="formula-item">p = F / S<span class="label">Tlak (obecně)</span></div>
+                    <div class="formula-item">p₁ = p₂<span class="label">Pascalův zákon</span></div>
                 </div>
-            </section>
+                <div class="box box-tip"><strong>Archimédův zákon</strong>Těleso ponořené do kapaliny je nadlehčováno silou rovnou tíze vytlačené kapaliny.</div>
+            </div>
+        </section>
 
-            <section id="zs6-mag-vlast">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Magnetické vlastnosti látek</h2>
-                    <p>Některé látky jsou <strong>magnetické</strong> (přitahují je magnety), jiné nikoliv.</p>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové pojmy</h4>
-                        <ul>
-                            <li><strong>Feromagnetické látky</strong>: železo, nikl, kobalt – silně přitahovány</li>
-                            <li><strong>Paramagnetické</strong>: hliník, platina – slabě přitahovány</li>
-                            <li><strong>Diamagnetické</strong>: měď, sklo, dřevo – odpuzovány (velmi slabě)</li>
-                            <li>Každý magnet má <strong>severní (N)</strong> a <strong>jižní (S)</strong> pól</li>
-                            <li>Stejné póly se <strong>odpuzují</strong>, různé se <strong>přitahují</strong></li>
-                        </ul>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Tip na test:</strong> Magnety se zlomením nerozdělí na jeden S a jeden N pól – každý kus má opět oba póly!
-                    </div>
+        <section id="zs-plyny">
+            <div class="card">
+                <span class="card-badge badge-zs">7. ročník</span>
+                <h2>Plyny</h2>
+                <p><strong>Atmosferický tlak:</strong> p₀ = 101 325 Pa ≈ 101,3 kPa</p>
+                <div class="formula">p₁ · V₁ = p₂ · V₂ &nbsp; (Boyleův zákon, konst. teplota)</div>
+                <div class="box box-keyfacts"><strong>Boyleův-Mariottův zákon</strong>Při stálé teplotě je součin tlaku a objemu plynu konstantní. Stlačíš plyn → tlak roste, objem klesá.</div>
+            </div>
+        </section>
+
+        <!-- 8. ROČNÍK -->
+        <section id="zs-veliciny8">
+            <div class="card">
+                <span class="card-badge badge-zs">8. ročník</span>
+                <h2>Veličiny a jednotky</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Veličina</th><th>Jednotka</th><th>Přístroj</th></tr></thead>
+                    <tbody>
+                    <tr><td>Délka</td><td>m</td><td>Pravítko, pásmo</td></tr>
+                    <tr><td>Hmotnost</td><td>kg</td><td>Váha</td></tr>
+                    <tr><td>Čas</td><td>s</td><td>Stopky, hodiny</td></tr>
+                    <tr><td>Teplota</td><td>°C / K</td><td>Teploměr</td></tr>
+                    <tr><td>El. proud</td><td>A</td><td>Ampérmetr</td></tr>
+                    <tr><td>Napětí</td><td>V</td><td>Voltmetr</td></tr>
+                    <tr><td>Odpor</td><td>Ω</td><td>Ohmmetr</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-prace">
+            <div class="card">
+                <span class="card-badge badge-zs">8. ročník</span>
+                <h2>Práce a energie</h2>
+                <div class="formula-grid">
+                    <div class="formula-item">W = F · s<span class="label">Mechanická práce [J]</span></div>
+                    <div class="formula-item">E<sub>k</sub> = ½ · m · v²<span class="label">Kinetická energie [J]</span></div>
+                    <div class="formula-item">E<sub>p</sub> = m · g · h<span class="label">Potenciální energie [J]</span></div>
+                    <div class="formula-item">P = W / t<span class="label">Výkon [W]</span></div>
                 </div>
-            </section>
+                <div class="formula">η = W<sub>užitečná</sub> / W<sub>celková</sub> · 100 % &nbsp; (účinnost)</div>
+                <div class="box box-keyfacts"><strong>Zákon zachování energie</strong>Energie nemůže vzniknout ani zaniknout, pouze se mění z jedné formy na druhou. Celková energie izolované soustavy je konstantní.</div>
+            </div>
+        </section>
 
-            <section id="zs6-delka">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Měření délky pevného tělesa</h2>
-                    <p>Délka se měří <strong>pravítkem, pásmem nebo posuvným měřidlem</strong>. Základní jednotka je <strong>metr (m)</strong>.</p>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">1 km = 1000 m</span></div>
-                        <div><span class="formula-small">1 m = 100 cm</span></div>
-                        <div><span class="formula-small">1 cm = 10 mm</span></div>
-                        <div><span class="formula-small">1 mm = 0,1 cm</span></div>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Tip na test:</strong> Při měření pravítkem přikládej začátek stupnice (nulu) k začátku tělesa. Odečítej kolmo k pravítku, ne šikmo!
-                    </div>
+        <section id="zs-teplo">
+            <div class="card">
+                <span class="card-badge badge-zs">8. ročník</span>
+                <h2>Teplo</h2>
+                <div class="formula">Q = m · c · ΔT</div>
+                <p>Q – teplo [J], m – hmotnost [kg], c – měrná tepelná kapacita [J/(kg·K)], ΔT – změna teploty [K]</p>
+                <table class="physics-table">
+                    <thead><tr><th>Látka</th><th>c [J/(kg·K)]</th></tr></thead>
+                    <tbody>
+                    <tr><td>Voda</td><td>4 186</td></tr>
+                    <tr><td>Led</td><td>2 090</td></tr>
+                    <tr><td>Hliník</td><td>900</td></tr>
+                    <tr><td>Železo</td><td>452</td></tr>
+                    <tr><td>Měď</td><td>385</td></tr>
+                    </tbody>
+                </table>
+                <div class="formula">Q₁ = Q₂ &nbsp; (kalorimetrická rovnice – tepelná výměna)</div>
+            </div>
+        </section>
+
+        <section id="zs-skupenstvi">
+            <div class="card">
+                <span class="card-badge badge-zs">8. ročník</span>
+                <h2>Skupenství látek</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Přechod</th><th>Název</th><th>Teplo</th></tr></thead>
+                    <tbody>
+                    <tr><td>Tuhé → Kapalné</td><td>Tání</td><td>přijímá</td></tr>
+                    <tr><td>Kapalné → Tuhé</td><td>Tuhnutí</td><td>odevzdává</td></tr>
+                    <tr><td>Kapalné → Plynné</td><td>Var / Vypařování</td><td>přijímá</td></tr>
+                    <tr><td>Plynné → Kapalné</td><td>Kondenzace</td><td>odevzdává</td></tr>
+                    <tr><td>Tuhé → Plynné</td><td>Sublimace</td><td>přijímá</td></tr>
+                    <tr><td>Plynné → Tuhé</td><td>Desublimace</td><td>odevzdává</td></tr>
+                    </tbody>
+                </table>
+                <div class="formula">Q = m · L &nbsp; (skupenské teplo)</div>
+                <p>L – skupenské teplo [J/kg]</p>
+            </div>
+        </section>
+
+        <section id="zs-naboj">
+            <div class="card">
+                <span class="card-badge badge-zs">8. ročník</span>
+                <h2>Elektrický náboj a pole</h2>
+                <div class="formula">F = k · Q₁ · Q₂ / r² &nbsp; (Coulombův zákon)</div>
+                <p>F [N], k = 9·10⁹ N·m²/C², Q₁, Q₂ [C], r [m]</p>
+                <div class="box box-keyfacts"><strong>Klíčové pojmy</strong>Kladný náboj: proton (+). Záporný náboj: elektron (−). Stejné náboje se odpuzují, opačné přitahují. Elektrické pole popisujeme siločárami.</div>
+            </div>
+        </section>
+
+        <section id="zs-proud8">
+            <div class="card">
+                <span class="card-badge badge-zs">8. ročník</span>
+                <h2>Elektrický proud – rozšíření</h2>
+                <div class="formula-grid">
+                    <div class="formula-item">U = R · I<span class="label">Ohmův zákon</span></div>
+                    <div class="formula-item">R = ρ · l / S<span class="label">Odpor vodiče</span></div>
+                    <div class="formula-item">P = U · I = U²/R<span class="label">Elektrický výkon [W]</span></div>
+                    <div class="formula-item">W = P · t = U · I · t<span class="label">Elektrická energie [J]</span></div>
                 </div>
-            </section>
+                <div class="box box-tip"><strong>Sériové odpory</strong>R = R₁ + R₂ + ...<br><strong>Paralelní odpory</strong>1/R = 1/R₁ + 1/R₂ + ...</div>
+            </div>
+        </section>
 
-            <section id="zs6-objem">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Měření objemu tělesa</h2>
-                    <p>Objem je prostorová velikost tělesa. Základní jednotka je <strong>metr krychlový (m³)</strong>, v praxi se používá <strong>litr (l)</strong> nebo <strong>cm³</strong>.</p>
-                    <div class="formula">V = a · b · c (kvádr)</div>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">1 m³ = 1000 l</span></div>
-                        <div><span class="formula-small">1 l = 1 dm³ = 1000 cm³</span></div>
-                    </div>
-                    <div class="example-box">
-                        <strong>🧪 Objem nepravidelných těles:</strong> Ponoříme těleso do odměrného válce s vodou a sledujeme, o kolik vzroste hladina. Rozdíl = objem tělesa!
-                    </div>
+        <section id="zs-zvuk">
+            <div class="card">
+                <span class="card-badge badge-zs">8. ročník</span>
+                <h2>Zvuk</h2>
+                <div class="formula">v = f · λ</div>
+                <p>v – rychlost [m/s], f – frekvence [Hz], λ – vlnová délka [m]</p>
+                <table class="physics-table">
+                    <thead><tr><th>Prostředí</th><th>Rychlost zvuku</th></tr></thead>
+                    <tbody>
+                    <tr><td>Vzduch (20 °C)</td><td>≈ 343 m/s</td></tr>
+                    <tr><td>Voda</td><td>≈ 1 480 m/s</td></tr>
+                    <tr><td>Ocel</td><td>≈ 5 000 m/s</td></tr>
+                    <tr><td>Vakuum</td><td>0 (nešíří se)</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-keyfacts"><strong>Vlastnosti zvuku</strong>Výška tónu (frekvence) · Hlasitost (amplituda) · Barva zvuku (tvar vlny). Slyšitelné rozmezí: 20 Hz – 20 000 Hz.</div>
+            </div>
+        </section>
+
+        <!-- 9. ROČNÍK -->
+        <section id="zs-indukce">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Elektromagnetická indukce</h2>
+                <div class="formula">U<sub>i</sub> = −N · ΔΦ / Δt &nbsp; (Faradayův zákon)</div>
+                <p>Uᵢ – indukované napětí, N – počet závitů, ΔΦ/Δt – rychlost změny mag. toku</p>
+                <div class="box box-example"><strong>Transformátor</strong>U₁/U₂ = N₁/N₂ &nbsp;&nbsp; (poměr napětí = poměr závitů)<br>Využití: přenos elektrické energie, nabíječky, svářečky.</div>
+            </div>
+        </section>
+
+        <section id="zs-stridavy">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Střídavý proud</h2>
+                <p>Frekvence v ČR: <strong>50 Hz</strong>, napětí v zásuvce: <strong>230 V</strong></p>
+                <div class="formula-grid">
+                    <div class="formula-item">T = 1 / f<span class="label">Perioda [s]</span></div>
+                    <div class="formula-item">f = 1 / T<span class="label">Frekvence [Hz]</span></div>
+                    <div class="formula-item">U<sub>ef</sub> = U<sub>max</sub> / √2<span class="label">Efektivní napětí</span></div>
+                    <div class="formula-item">P = U · I · cos φ<span class="label">Výkon (cos φ = 1)</span></div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="zs6-hmotnost">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Měření hmotnosti tělesa</h2>
-                    <p>Hmotnost vyjadřuje, kolik látky těleso obsahuje. Měříme ji <strong>váhou nebo rovnoramennou váhou</strong>. Základní jednotka je <strong>kilogram (kg)</strong>.</p>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">1 t = 1000 kg</span></div>
-                        <div><span class="formula-small">1 kg = 1000 g</span></div>
-                        <div><span class="formula-small">1 g = 1000 mg</span></div>
-                        <div><span class="formula-small">1 dag = 10 g</span></div>
-                    </div>
-                    <div class="warning-box">
-                        <strong>⚠️ Pozor na záměnu!</strong> Hmotnost (kg) ≠ Tíha (N). Hmotnost je vlastnost tělesa, tíha je síla, kterou Země těleso přitahuje.
-                    </div>
+        <section id="zs-vedeni">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Vedení proudu v kapalinách a plynech</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Prostředí</th><th>Nositelé náboje</th><th>Příklad</th></tr></thead>
+                    <tbody>
+                    <tr><td>Kovy</td><td>Elektrony</td><td>Měděný vodič</td></tr>
+                    <tr><td>Kapaliny (elektrolyty)</td><td>Ionty (+/−)</td><td>Okyselená voda, CuSO₄</td></tr>
+                    <tr><td>Ionizovaný plyn</td><td>Ionty + elektrony</td><td>Neon. trubice, blesk</td></tr>
+                    <tr><td>Vakuum</td><td>Elektrony</td><td>Elektronka, TV trubice</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-zareni">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Elektromagnetické záření</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Typ záření</th><th>Vlnová délka</th><th>Využití</th></tr></thead>
+                    <tbody>
+                    <tr><td>Rádiové vlny</td><td>&gt; 0,1 m</td><td>Radio, TV, WiFi</td></tr>
+                    <tr><td>Mikrovlny</td><td>1 mm – 0,1 m</td><td>Mikrovlnná trouba, radar</td></tr>
+                    <tr><td>Infračervené</td><td>700 nm – 1 mm</td><td>Tepelné kamery, dálkové ovl.</td></tr>
+                    <tr><td>Viditelné světlo</td><td>380 – 700 nm</td><td>Vidění, fotografie</td></tr>
+                    <tr><td>Ultrafialové</td><td>10 – 380 nm</td><td>Sterilizace, opálení</td></tr>
+                    <tr><td>Rentgenové</td><td>0,01 – 10 nm</td><td>Lékařské snímkování</td></tr>
+                    <tr><td>Gama záření</td><td>&lt; 0,01 nm</td><td>Onkologie, sterilizace</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-tip"><strong>Všechny typy</strong> se šíří ve vakuu rychlostí světla: c = 3 · 10⁸ m/s</div>
+            </div>
+        </section>
+
+        <section id="zs-svetlo">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Přímočaré šíření světla</h2>
+                <p>Světlo se v homogenním prostředí šíří <strong>přímočaře</strong>. Vznik stínu, polostínu, zatmění.</p>
+                <div class="box box-example"><strong>Zatmění</strong>Zatmění Slunce: Měsíc se dostane mezi Zemi a Slunce.<br>Zatmění Měsíce: Země se dostane mezi Slunce a Měsíc.</div>
+            </div>
+        </section>
+
+        <section id="zs-odraz">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Odraz světla</h2>
+                <div class="formula">α = β &nbsp; (úhel dopadu = úhel odrazu)</div>
+                <table class="physics-table">
+                    <thead><tr><th>Typ zrcadla</th><th>Obraz</th><th>Využití</th></tr></thead>
+                    <tbody>
+                    <tr><td>Rovné</td><td>Zdánlivý, stejně velký</td><td>Koupelnové zrcadlo</td></tr>
+                    <tr><td>Duté (konkávní)</td><td>Může být skutečný/zdánlivý</td><td>Reflektory, dalekohledy</td></tr>
+                    <tr><td>Vypuklé (konvexní)</td><td>Zdánlivý, zmenšený</td><td>Zpětné zrcátko auta</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-lom">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Lom světla</h2>
+                <div class="formula">n = c / v &nbsp; (index lomu)</div>
+                <div class="formula">n₁ · sin α = n₂ · sin β &nbsp; (Snellův zákon)</div>
+                <p>Voda: n ≈ 1,33 · Sklo: n ≈ 1,5 · Vzduch: n ≈ 1</p>
+                <div class="box box-tip"><strong>Úplný odraz</strong>Nastane, když světlo přechází z hustšího do řidšího prostředí pod úhlem větším než kritický. Základní princip optických vláken.</div>
+                <div class="box box-keyfacts"><strong>Čočky</strong>Spojná (konvexní): sbíhá paprsky, ohnisko za čočkou.<br>Rozptylná (konkávní): rozptyluje paprsky, ohnisko před čočkou.</div>
+            </div>
+        </section>
+
+        <section id="zs-energie9">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Energie a přeměny</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Formy energie</th><th>Přeměna (příklad)</th></tr></thead>
+                    <tbody>
+                    <tr><td>Mechanická</td><td>→ Tepelná (brzdění)</td></tr>
+                    <tr><td>Elektrická</td><td>→ Světelná (žárovka)</td></tr>
+                    <tr><td>Chemická</td><td>→ Elektrická (baterie)</td></tr>
+                    <tr><td>Jaderná</td><td>→ Tepelná + Záření (reaktor)</td></tr>
+                    <tr><td>Světelná</td><td>→ Elektrická (solární panel)</td></tr>
+                    <tr><td>Tepelná</td><td>→ Mechanická (parní stroj)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="zs-vesmir">
+            <div class="card">
+                <span class="card-badge badge-zs">9. ročník</span>
+                <h2>Země a vesmír</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Veličina</th><th>Hodnota</th></tr></thead>
+                    <tbody>
+                    <tr><td>Rychlost světla</td><td>3 · 10⁸ m/s</td></tr>
+                    <tr><td>Vzdálenost Země–Slunce</td><td>≈ 150 · 10⁹ m (1 AU)</td></tr>
+                    <tr><td>Průměr Slunce</td><td>≈ 1,4 · 10⁹ m</td></tr>
+                    <tr><td>Hmotnost Země</td><td>≈ 6 · 10²⁴ kg</td></tr>
+                    <tr><td>g na Zemi</td><td>≈ 9,81 m/s²</td></tr>
+                    <tr><td>1 světelný rok</td><td>≈ 9,46 · 10¹⁵ m</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-keyfacts"><strong>Klíčové pojmy</strong>Galaxie · Hvězda · Planeta · Měsíc · Asteroid · Kometa · Černá díra · Neutronová hvězda · Supernova</div>
+            </div>
+        </section>
+
+    </div><!-- end content-zs -->
+
+    <!-- SŠ SIDEBAR -->
+    <nav class="sidebar" id="sidebar-ss">
+        <div class="sidebar-title">Učivo SŠ</div>
+        <div class="sidebar-year ss">1. ročník</div>
+        <a href="#ss-veliciny">Veličiny a jednotky</a>
+        <a href="#ss-kinematika">Kinematika</a>
+        <a href="#ss-dynamika">Dynamika – Newtonovy zákony</a>
+        <a href="#ss-tekutiny">Mechanika tekutin</a>
+        <div class="sidebar-year ss">2. ročník</div>
+        <a href="#ss-molekulova">Molekulová fyzika</a>
+        <a href="#ss-kmitani">Kmitání a vlnění</a>
+        <div class="sidebar-year ss">3. ročník</div>
+        <a href="#ss-elektrina">Elektřina</a>
+        <a href="#ss-magnet">Magnetické pole</a>
+        <div class="sidebar-year ss">4. ročník</div>
+        <a href="#ss-optika">Optika</a>
+        <a href="#ss-relativita">Speciální teorie relativity</a>
+        <a href="#ss-mikrosvět">Fyzika mikrosvěta</a>
+    </nav>
+
+    <!-- SŠ CONTENT -->
+    <div class="content" id="content-ss">
+
+        <!-- 1. ROČNÍK -->
+        <section id="ss-veliciny">
+            <div class="card">
+                <span class="card-badge badge-ss">1. ročník</span>
+                <h2>Veličiny a jednotky – SI soustava</h2>
+                <table class="physics-table">
+                    <thead><tr><th>Základní veličina</th><th>Jednotka</th><th>Zkratka</th></tr></thead>
+                    <tbody>
+                    <tr><td>Délka</td><td>metr</td><td>m</td></tr>
+                    <tr><td>Hmotnost</td><td>kilogram</td><td>kg</td></tr>
+                    <tr><td>Čas</td><td>sekunda</td><td>s</td></tr>
+                    <tr><td>Elektrický proud</td><td>ampér</td><td>A</td></tr>
+                    <tr><td>Termodynamická teplota</td><td>kelvin</td><td>K</td></tr>
+                    <tr><td>Látkové množství</td><td>mol</td><td>mol</td></tr>
+                    <tr><td>Svítivost</td><td>kandela</td><td>cd</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-tip"><strong>Převod rychlosti</strong>1 m/s = 3,6 km/h &nbsp;&nbsp; 1 km/h = 1/3,6 m/s ≈ 0,278 m/s</div>
+            </div>
+        </section>
+
+        <section id="ss-kinematika">
+            <div class="card">
+                <span class="card-badge badge-ss">1. ročník</span>
+                <h2>Kinematika</h2>
+                <div class="formula-grid">
+                    <div class="formula-item">s = v₀·t + ½·a·t²<span class="label">Dráha rovnoměrně zrychleného pohybu</span></div>
+                    <div class="formula-item">v = v₀ + a·t<span class="label">Rychlost (rovnoměrně zrychlený pohyb)</span></div>
+                    <div class="formula-item">v² = v₀² + 2·a·s<span class="label">Rychlost bez času</span></div>
+                    <div class="formula-item">s = v·t<span class="label">Rovnoměrný pohyb</span></div>
                 </div>
-            </section>
+                <p><strong>Volný pád</strong> (a = g ≈ 9,81 m/s², v₀ = 0):</p>
+                <div class="formula">h = ½ · g · t² &nbsp;&nbsp; v = g · t</div>
+                <div class="box box-example"><strong>Příklad</strong>Těleso volně padá 3 s. Výška: h = ½ · 9,81 · 9 ≈ 44,1 m. Rychlost: v = 9,81 · 3 ≈ 29,4 m/s.</div>
+            </div>
+        </section>
 
-            <section id="zs6-hustota">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Hustota</h2>
-                    <p>Hustota říká, kolik kilogramů váží jeden metr krychlový dané látky. Je to vlastnost látky (ne tělesa).</p>
-                    <div class="formula">ρ = m / V</div>
-                    <table class="physics-table">
-                        <tr><th>Látka</th><th>Hustota (kg/m³)</th></tr>
-                        <tr><td>Vzduch</td><td>1,29</td></tr>
-                        <tr><td>Voda</td><td>1 000</td></tr>
-                        <tr><td>Hliník</td><td>2 700</td></tr>
-                        <tr><td>Železo</td><td>7 870</td></tr>
-                        <tr><td>Olovo</td><td>11 350</td></tr>
-                        <tr><td>Zlatko</td><td>19 300</td></tr>
-                    </table>
-                    <div class="example-box">
-                        <strong>🧪 Proč plave olej na vodě?</strong> Olej má hustotu ~900 kg/m³, voda 1000 kg/m³. Menší hustota = plave nahoře.
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Odvozené vzorce:</strong> m = ρ · V &nbsp;|&nbsp; V = m / ρ
-                    </div>
+        <section id="ss-dynamika">
+            <div class="card">
+                <span class="card-badge badge-ss">1. ročník</span>
+                <h2>Dynamika – Newtonovy zákony</h2>
+                <div class="formula">F = m · a &nbsp;&nbsp; (2. Newtonův zákon)</div>
+                <div class="box box-keyfacts">
+                    <strong>3 zákony</strong>
+                    <strong>1. zákon (setrvačnosti):</strong> Izolované těleso setrvává v klidu nebo rovnoměrném přímočarém pohybu.<br><br>
+                    <strong>2. zákon (pohybový):</strong> Výsledná síla = m · a. Čím větší síla, tím větší zrychlení.<br><br>
+                    <strong>3. zákon (akce–reakce):</strong> Dvojice sil – stejně velká, opačně orientovaná, různá tělesa.
                 </div>
-            </section>
+                <div class="formula">p = m · v &nbsp;&nbsp; (hybnost [kg·m/s])</div>
+                <div class="box box-tip"><strong>Zákon zachování hybnosti</strong>Celková hybnost uzavřené soustavy těles je konstantní (při srážkách, výbuších).</div>
+            </div>
+        </section>
 
-            <section id="zs6-cas">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Měření času</h2>
-                    <p>Čas měříme <strong>hodinami, stopkami nebo časomírou</strong>. Základní jednotka je <strong>sekunda (s)</strong>.</p>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">1 min = 60 s</span></div>
-                        <div><span class="formula-small">1 h = 60 min = 3600 s</span></div>
-                        <div><span class="formula-small">1 den = 24 h</span></div>
-                        <div><span class="formula-small">1 rok ≈ 365 dní</span></div>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Tip na test:</strong> Přepočty: 1 h 30 min = 90 min = 5400 s. Vždy převádět na sekundy pro výpočty!
-                    </div>
+        <section id="ss-tekutiny">
+            <div class="card">
+                <span class="card-badge badge-ss">1. ročník</span>
+                <h2>Mechanika tekutin</h2>
+                <div class="formula-grid">
+                    <div class="formula-item">p = F / S<span class="label">Tlak [Pa]</span></div>
+                    <div class="formula-item">p = ρ · g · h<span class="label">Hydrostatický tlak</span></div>
+                    <div class="formula-item">F<sub>A</sub> = ρ · g · V<span class="label">Archimédova síla</span></div>
+                    <div class="formula-item">S₁ · v₁ = S₂ · v₂<span class="label">Rovnice kontinuity</span></div>
                 </div>
-            </section>
+                <div class="formula">p + ½·ρ·v² + ρ·g·h = konst. &nbsp; (Bernoulliova rovnice)</div>
+                <div class="box box-example"><strong>Bernoulliho princip</strong>Kde proudí tekutina rychleji, tam je nižší tlak. Základ aerodynamiky, trysky, pumpování.</div>
+            </div>
+        </section>
 
-            <section id="zs6-teplota">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Měření teploty tělesa</h2>
-                    <p>Teplotu měříme <strong>teploměrem</strong>. Základní jednotka je <strong>kelvin (K)</strong>, v praxi používáme <strong>stupeň Celsia (°C)</strong>.</p>
-                    <div class="formula">T (K) = t (°C) + 273</div>
-                    <div class="key-facts">
-                        <h4>📌 Důležité hodnoty</h4>
-                        <ul>
-                            <li>Bod mrazu vody: 0 °C = 273 K</li>
-                            <li>Bod varu vody: 100 °C = 373 K</li>
-                            <li>Absolutní nula: −273 °C = 0 K (nejnižší možná teplota)</li>
-                            <li>Teplota lidského těla: ~37 °C</li>
-                        </ul>
-                    </div>
+        <!-- 2. ROČNÍK -->
+        <section id="ss-molekulova">
+            <div class="card">
+                <span class="card-badge badge-ss">2. ročník</span>
+                <h2>Molekulová fyzika a termodynamika</h2>
+                <div class="formula">Q = m · c · ΔT &nbsp;&nbsp; (teplo)</div>
+                <div class="formula">pV = nRT &nbsp;&nbsp; (stavová rovnice ideálního plynu)</div>
+                <p>p [Pa], V [m³], n [mol], R = 8,314 J/(mol·K), T [K]</p>
+                <table class="physics-table">
+                    <thead><tr><th>Děj</th><th>Konstanta</th><th>Zákon</th></tr></thead>
+                    <tbody>
+                    <tr><td>Izotermický</td><td>T = konst.</td><td>pV = konst. (Boyle-Mariotte)</td></tr>
+                    <tr><td>Izobarický</td><td>p = konst.</td><td>V/T = konst. (Gay-Lussac)</td></tr>
+                    <tr><td>Izochorický</td><td>V = konst.</td><td>p/T = konst. (Charles)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="ss-kmitani">
+            <div class="card">
+                <span class="card-badge badge-ss">2. ročník</span>
+                <h2>Kmitání a vlnění</h2>
+                <div class="formula-grid">
+                    <div class="formula-item">T = 1 / f<span class="label">Perioda [s]</span></div>
+                    <div class="formula-item">f = 1 / T<span class="label">Frekvence [Hz]</span></div>
+                    <div class="formula-item">v = f · λ<span class="label">Rychlost vlnění</span></div>
+                    <div class="formula-item">T = 2π√(l/g)<span class="label">Kyvadlo (perioda)</span></div>
                 </div>
-            </section>
+                <table class="physics-table">
+                    <thead><tr><th>Typ vlnění</th><th>Popis</th><th>Příklad</th></tr></thead>
+                    <tbody>
+                    <tr><td>Příčné</td><td>Kmitání ⊥ směru šíření</td><td>Světlo, vlna na laně</td></tr>
+                    <tr><td>Podélné</td><td>Kmitání ∥ směru šíření</td><td>Zvuk, tlakové vlny</td></tr>
+                    <tr><td>Stojatá vlna</td><td>Interference dvou vln</td><td>Struna kytary</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-            <section id="zs6-proud">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Elektrický proud</h2>
-                    <p>Elektrický proud je <strong>uspořádaný pohyb nabitých částic (elektronů)</strong> v obvodu. Vzniká, když je obvod uzavřený a je v něm zdroj napětí.</p>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">I [A] – proud</span><span class="formula-label">Ampér</span></div>
-                        <div><span class="formula-small">U [V] – napětí</span><span class="formula-label">Volt</span></div>
-                        <div><span class="formula-small">R [Ω] – odpor</span><span class="formula-label">Ohm</span></div>
-                        <div><span class="formula-small">U = I · R</span><span class="formula-label">Ohmův zákon</span></div>
-                    </div>
-                    <div class="key-facts">
-                        <h4>📌 Části obvodu</h4>
-                        <ul>
-                            <li><strong>Zdroj</strong>: baterie, článek (vytváří napětí)</li>
-                            <li><strong>Spotřebič</strong>: žárovka, motor (využívá proud)</li>
-                            <li><strong>Vodiče</strong>: propojují obvod</li>
-                            <li><strong>Spínač</strong>: zapíná/vypíná obvod</li>
-                        </ul>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Tip na test:</strong> Proud teče jen v <strong>uzavřeném</strong> obvodu. Pokud je obvod přerušen (otevřený spínač), proud neteče!
-                    </div>
+        <!-- 3. ROČNÍK -->
+        <section id="ss-elektrina">
+            <div class="card">
+                <span class="card-badge badge-ss">3. ročník</span>
+                <h2>Elektřina</h2>
+                <div class="formula-grid">
+                    <div class="formula-item">U = R · I<span class="label">Ohmův zákon</span></div>
+                    <div class="formula-item">R = ρ · l / S<span class="label">Odpor vodiče</span></div>
+                    <div class="formula-item">P = U · I = I²R<span class="label">Výkon [W]</span></div>
+                    <div class="formula-item">W = P · t<span class="label">Elektrická energie [J]</span></div>
                 </div>
-            </section>
-
-            <section id="zs6-spotrebice">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Tepelné elektrické spotřebiče</h2>
-                    <p>Tepelné spotřebiče přeměňují elektrickou energii na tepelnou. Klíčový pojem je <strong>elektrický příkon (P)</strong>.</p>
-                    <div class="formula">P = U · I &nbsp;&nbsp;&nbsp; [W = V · A]</div>
-                    <table class="physics-table">
-                        <tr><th>Spotřebič</th><th>Typický příkon</th></tr>
-                        <tr><td>Žárovka LED</td><td>5–15 W</td></tr>
-                        <tr><td>Žárovka klasická</td><td>60–100 W</td></tr>
-                        <tr><td>Rychlovarná konvice</td><td>2000–3000 W</td></tr>
-                        <tr><td>Trouba</td><td>1500–2500 W</td></tr>
-                        <tr><td>Fén</td><td>1500–2000 W</td></tr>
-                    </table>
-                    <div class="tip-box">
-                        <strong>💡 Tip na test:</strong> Větší příkon = více energie spotřebuje za stejný čas = větší účet za elektřinu.
-                    </div>
+                <div class="formula">C = Q / U &nbsp;&nbsp; (kapacita kondenzátoru [F])</div>
+                <div class="box box-keyfacts">
+                    <strong>Kirchhoffovy zákony</strong>
+                    <strong>1. KZ (uzlový):</strong> Součet proudů přitékajících do uzlu = součet proudů odtékajících (ΣI = 0).<br><br>
+                    <strong>2. KZ (smyčkový):</strong> Součet napětí ve smyčce = 0 (ΣU = 0, resp. ΣU = ΣR·I).
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="zs6-magnpole">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Magnetické pole elektrického proudu</h2>
-                    <p>Elektrický proud protékající vodičem vytváří kolem vodiče <strong>magnetické pole</strong>. Tento jev využívají <strong>elektromagnety</strong>.</p>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové pojmy</h4>
-                        <ul>
-                            <li><strong>Elektromagnet</strong>: cívka navinutá na železném jádře – magnet, pokud jím prochází proud</li>
-                            <li>Sílu elektromagnetu zvýšíme: větším proudem, více závity, železným jádrem</li>
-                            <li><strong>Použití</strong>: zvonek, jeřáb na šrotišti, relé, elektromotor</li>
-                            <li>Po vypnutí proudu magnetismus <strong>zmizí</strong></li>
-                        </ul>
-                    </div>
-                    <div class="example-box">
-                        <strong>🔔 Dveřní zvonek:</strong> Stisknutím tlačítka uzavřeš obvod → proud teče cívkou → elektromagnet přitáhne kovové kladívko → zvonek zazvoní.
-                    </div>
+        <section id="ss-magnet">
+            <div class="card">
+                <span class="card-badge badge-ss">3. ročník</span>
+                <h2>Magnetické pole</h2>
+                <div class="formula-grid">
+                    <div class="formula-item">F = B · I · l<span class="label">Síla na vodič s proudem</span></div>
+                    <div class="formula-item">F = q · v · B<span class="label">Lorentzova síla</span></div>
+                    <div class="formula-item">U<sub>i</sub> = B · l · v<span class="label">Indukované napětí</span></div>
+                    <div class="formula-item">U₁/U₂ = N₁/N₂<span class="label">Transformátor</span></div>
                 </div>
-            </section>
+                <div class="box box-tip"><strong>Flemingovo pravidlo levé ruky</strong>Ukazuje směr síly na vodič: palec = síla (pohyb), ukazováček = magnetické pole (B), prostředníček = proud (I).</div>
+            </div>
+        </section>
 
-            <section id="zs6-obvod">
-                <div class="card">
-                    <span class="badge badge-zs">6. ročník</span>
-                    <h2>Rozvětvený elektrický obvod</h2>
-                    <p>Spotřebiče lze zapojit <strong>sériově</strong> (za sebou) nebo <strong>paralelně</strong> (vedle sebe).</p>
-                    <table class="physics-table">
-                        <tr><th>Vlastnost</th><th>Sériové zapojení</th><th>Paralelní zapojení</th></tr>
-                        <tr><td>Proud</td><td>Stejný ve všech částech</td><td>Dělí se do větví</td></tr>
-                        <tr><td>Napětí</td><td>Dělí se na spotřebiče</td><td>Na každém stejné</td></tr>
-                        <tr><td>Výpadek jednoho</td><td>Přestane fungovat vše</td><td>Ostatní fungují dál</td></tr>
-                        <tr><td>Použití</td><td>Sváteční světýlka</td><td>Zásuvky v bytě</td></tr>
-                    </table>
-                    <div class="tip-box">
-                        <strong>💡 Tip na test:</strong> Zásuvky v bytě jsou zapojeny paralelně – proto když přepálíš pojistku u jedné, ostatní fungují.
-                    </div>
+        <!-- 4. ROČNÍK -->
+        <section id="ss-optika">
+            <div class="card">
+                <span class="card-badge badge-ss">4. ročník</span>
+                <h2>Optika</h2>
+                <div class="formula">n = c / v &nbsp;&nbsp; (index lomu)</div>
+                <div class="formula">n₁ · sin α = n₂ · sin β &nbsp;&nbsp; (Snellův zákon)</div>
+                <div class="formula">1/f = 1/a + 1/b &nbsp;&nbsp; (zobrazovací rovnice čočky)</div>
+                <p>f – ohnisková vzdálenost [m], a – vzdálenost předmětu, b – vzdálenost obrazu</p>
+                <div class="formula">D = 1 / f &nbsp;&nbsp; (optická mohutnost [dioptrie, D])</div>
+                <div class="box box-example"><strong>Příklad</strong>Čočka s ohniskovou vzdáleností 0,25 m má optickou mohutnost D = 1/0,25 = 4 dioptrie.</div>
+                <div class="box box-tip"><strong>Typy čoček</strong>Spojná (konvexní, f > 0): lupa, dalekohled, fotoaparát.<br>Rozptylná (konkávní, f &lt; 0): korekce krátkozrakosti.</div>
+            </div>
+        </section>
+
+        <section id="ss-relativita">
+            <div class="card">
+                <span class="card-badge badge-ss">4. ročník</span>
+                <h2>Speciální teorie relativity</h2>
+                <div class="formula">E = m · c² &nbsp;&nbsp; (Einsteinův vzorec)</div>
+                <p>E – energie [J], m – hmotnost [kg], c = 3 · 10⁸ m/s</p>
+                <div class="box box-keyfacts">
+                    <strong>4 relativistické efekty</strong>
+                    <strong>1. Relativita současnosti:</strong> Dvě současné události v jedné soustavě nemusí být současné v jiné.<br><br>
+                    <strong>2. Dilatace času:</strong> Pohybující se hodiny tikají pomaleji – t = t₀ / √(1 − v²/c²).<br><br>
+                    <strong>3. Kontrakce délky:</strong> Pohybující se tělesa jsou kratší ve směru pohybu.<br><br>
+                    <strong>4. Relativistická hmotnost:</strong> Hmotnost roste s rychlostí → nelze dosáhnout rychlosti světla.
                 </div>
-            </section>
+                <div class="box box-example"><strong>Příklad – energie</strong>Anihilace 1 kg hmoty: E = 1 · (3·10⁸)² = 9 · 10¹⁶ J. To odpovídá energii mnoha atomových bomb.</div>
+            </div>
+        </section>
 
-            <!-- 7. ročník -->
-            <h2 style="color: var(--zs-color); font-size:1.5rem; margin: 30px 0 10px;">📘 7. ročník</h2>
+        <section id="ss-mikrosvět">
+            <div class="card">
+                <span class="card-badge badge-ss">4. ročník</span>
+                <h2>Fyzika mikrosvěta</h2>
+                <p><strong>Stavba atomu:</strong> Jádro (protony + neutrony) + elektronový obal.</p>
+                <table class="physics-table">
+                    <thead><tr><th>Typ záření</th><th>Co je to</th><th>Pronikavost</th></tr></thead>
+                    <tbody>
+                    <tr><td>Alfa (α)</td><td>Jádra helia ⁴₂He</td><td>Nejmenší (list papíru)</td></tr>
+                    <tr><td>Beta (β)</td><td>Elektrony nebo pozitrony</td><td>Střední (hliník mm)</td></tr>
+                    <tr><td>Gama (γ)</td><td>Fotony (elektromag. záření)</td><td>Největší (olovo, beton)</td></tr>
+                    </tbody>
+                </table>
+                <div class="formula">N(t) = N₀ · (½)^(t/T½) &nbsp;&nbsp; (poločas rozpadu)</div>
+                <div class="formula">E = h · f &nbsp;&nbsp; (fotoelektrický jev)</div>
+                <p>h = 6,626 · 10⁻³⁴ J·s (Planckova konstanta), f – frekvence fotonu [Hz]</p>
+                <div class="box box-tip"><strong>Poločas rozpadu T½</strong>Čas, za který se rozpadne polovina radioaktivních jader. Každý radioaktivní izotop má jiný T½ (od zlomků sekundy po miliardy let).</div>
+            </div>
+        </section>
 
-            <section id="zs7-jednotky">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Převádění jednotek</h2>
-                    <p>Fyzikální výpočty vyžadují práci s jednotkami. Vždy převádějte na <strong>základní jednotky SI</strong> před výpočtem.</p>
-                    <table class="physics-table">
-                        <tr><th>Veličina</th><th>Základní jednotka</th><th>Časté převody</th></tr>
-                        <tr><td>Délka</td><td>metr (m)</td><td>1 km = 1000 m, 1 cm = 0,01 m</td></tr>
-                        <tr><td>Hmotnost</td><td>kilogram (kg)</td><td>1 t = 1000 kg, 1 g = 0,001 kg</td></tr>
-                        <tr><td>Čas</td><td>sekunda (s)</td><td>1 min = 60 s, 1 h = 3600 s</td></tr>
-                        <tr><td>Rychlost</td><td>m/s</td><td>1 km/h = 1/3,6 m/s ≈ 0,278 m/s</td></tr>
-                    </table>
-                    <div class="tip-box">
-                        <strong>💡 Zlaté pravidlo:</strong> Vždy nejdřív převeď, pak počítej. 36 km/h = 10 m/s (dělíme 3,6).
-                    </div>
-                </div>
-            </section>
+    </div><!-- end content-ss -->
 
-            <section id="zs7-pohyb">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Pohyb tělesa</h2>
-                    <p>Pohyb popisujeme pomocí <strong>dráhy, rychlosti a času</strong>. Těleso je v pohybu, pokud mění svou polohu vůči vztažnému tělesu.</p>
-                    <div class="formula">v = s / t &nbsp;&nbsp;&nbsp;&nbsp; s = v · t &nbsp;&nbsp;&nbsp;&nbsp; t = s / v</div>
-                    <table class="physics-table">
-                        <tr><th>Druh pohybu</th><th>Rychlost</th><th>Příklad</th></tr>
-                        <tr><td>Rovnoměrný přímočarý</td><td>Stálá, stejný směr</td><td>Auto na dálnici</td></tr>
-                        <tr><td>Nerovnoměrný</td><td>Mění se</td><td>Auto ve městě</td></tr>
-                        <tr><td>Rovnoměrný kruhový</td><td>Stálá velikost, mění se směr</td><td>Oběh Měsíce</td></tr>
-                    </table>
-                    <div class="example-box">
-                        <strong>🚗 Příklad:</strong> Vlak jede rychlostí 120 km/h = 120/3,6 ≈ 33,3 m/s. Za 2 hodiny ujede: s = 120 · 2 = 240 km.
-                    </div>
-                </div>
-            </section>
+</div><!-- end main-layout -->
 
-            <section id="zs7-sila">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Síla a její měření</h2>
-                    <p>Síla je příčina změny pohybu nebo deformace tělesa. Měříme ji <strong>siloměrem</strong>. Jednotka je <strong>Newton (N)</strong>.</p>
-                    <div class="formula">F_G = m · g &nbsp;&nbsp; (g ≈ 10 N/kg)</div>
-                    <div class="key-facts">
-                        <h4>📌 Druhy sil</h4>
-                        <ul>
-                            <li><strong>Tíhová síla</strong>: Země přitahuje těleso dolů (F = m · g)</li>
-                            <li><strong>Normálová síla</strong>: podložka působí kolmo na těleso</li>
-                            <li><strong>Třecí síla</strong>: brání pohybu, působí proti pohybu</li>
-                            <li><strong>Pružná síla</strong>: odpor pružiny (F = k · x)</li>
-                        </ul>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Příklad:</strong> Těleso o hmotnosti 5 kg: F_G = 5 · 10 = 50 N. Tolik váží na Zemi.
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs7-skladani">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Skládání a rozkládání sil</h2>
-                    <p>Na těleso může působit více sil současně. Výsledná síla je jejich <strong>vektorový součet</strong>.</p>
-                    <div class="key-facts">
-                        <h4>📌 Pravidla</h4>
-                        <ul>
-                            <li><strong>Stejný směr</strong>: F_výsl = F₁ + F₂</li>
-                            <li><strong>Opačný směr</strong>: F_výsl = F₁ − F₂ (ve směru větší)</li>
-                            <li><strong>Rovnováha</strong>: F_výsl = 0 → těleso je v klidu nebo rovnoměrném pohybu</li>
-                            <li>Síly jsou vektory – mají <strong>velikost, směr a působiště</strong></li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs7-zakony">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Pohybové zákony (Newtonovy)</h2>
-                    <div class="key-facts">
-                        <h4>📌 Tři zákony pohybu</h4>
-                        <ul>
-                            <li><strong>1. zákon (zákon setrvačnosti):</strong> Těleso setrvává v klidu nebo rovnoměrném přímočarém pohybu, dokud na něj nepůsobí vnější síla.</li>
-                            <li><strong>2. zákon (zákon síly):</strong> F = m · a — síla se rovná součinu hmotnosti a zrychlení.</li>
-                            <li><strong>3. zákon (akce a reakce):</strong> Každé akci odpovídá stejně velká reakce v opačném směru.</li>
-                        </ul>
-                    </div>
-                    <div class="formula">F = m · a</div>
-                    <div class="example-box">
-                        <strong>3. zákon v praxi:</strong> Když tlačíš na zeď, zeď tlačí stejnou silou zpátky na tebe. Proto se při skoku z lodě loď pohne od tebe!
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs7-otaceni">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Otáčivé účinky síly – Moment síly</h2>
-                    <p>Síla může způsobit otáčení tělesa kolem osy (osy otáčení). Otáčivý účinek závisí na velikosti síly a její vzdálenosti od osy.</p>
-                    <div class="formula">M = F · d &nbsp;&nbsp; [N·m]</div>
-                    <div class="key-facts">
-                        <h4>📌 Podmínka rovnováhy páky</h4>
-                        <ul>
-                            <li>Páka je v rovnováze, když: F₁ · d₁ = F₂ · d₂</li>
-                            <li>d = rameno síly (kolmá vzdálenost síly od osy otáčení)</li>
-                        </ul>
-                    </div>
-                    <div class="example-box">
-                        <strong>🔧 Příklad:</strong> Utahuješ matici klíčem. Čím delší klíč (větší d), tím větší moment síly (M) a tím snáze utáhneš.
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs7-deformace">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Deformační účinky síly</h2>
-                    <p>Síla může měnit tvar tělesa. Deformace může být <strong>pružná</strong> (těleso se vrátí) nebo <strong>plastická</strong> (těleso se nevrátí).</p>
-                    <div class="formula">F = k · x &nbsp; (Hookův zákon)</div>
-                    <div class="key-facts">
-                        <h4>📌 Pojmy</h4>
-                        <ul>
-                            <li><strong>k</strong> = tuhost pružiny [N/m]</li>
-                            <li><strong>x</strong> = prodloužení pružiny [m]</li>
-                            <li>Hookův zákon platí jen do <strong>meze pružnosti</strong></li>
-                            <li>Druhy deformací: tah, tlak, ohyb, kroucení, střih</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs7-treni">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Tření</h2>
-                    <p>Třecí síla vzniká při pohybu tělesa po povrchu. Působí <strong>proti pohybu</strong>.</p>
-                    <div class="formula">F_t = f · F_N</div>
-                    <table class="physics-table">
-                        <tr><th>Typ tření</th><th>Popis</th><th>Příklad</th></tr>
-                        <tr><td>Klidové</td><td>Brání rozjetí</td><td>Brzdění stojícího auta</td></tr>
-                        <tr><td>Smykové</td><td>Při klouzání po povrchu</td><td>Sáně na sněhu</td></tr>
-                        <tr><td>Valivé</td><td>Při valení (menší než smykové)</td><td>Kolo, kuličkové ložisko</td></tr>
-                    </table>
-                    <div class="tip-box">
-                        <strong>💡 Tip:</strong> Tření může být žádoucí (brzdění, chůze) i nežádoucí (opotřebení strojů). Snižujeme ho mazadly nebo kuličkovými ložisky.
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs7-kapaliny">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Mechanické vlastnosti kapalin</h2>
-                    <p>Kapaliny mají <strong>stálý objem</strong>, ale nemají stálý tvar (přizpůsobí se nádobě).</p>
-                    <div class="formula">F_A = ρ · V · g &nbsp; (Archimédova síla)</div>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové jevy</h4>
-                        <ul>
-                            <li><strong>Hydrostatický tlak</strong>: p = ρ · g · h (roste s hloubkou)</li>
-                            <li><strong>Archimédův zákon</strong>: Na ponořené těleso působí nadlehčovací síla rovná tíze vytlačené kapaliny</li>
-                            <li><strong>Pascalův zákon</strong>: Tlak se přenáší do všech směrů stejně (hydraulický lis)</li>
-                            <li>Těleso plave, pokud je jeho hustota menší než hustota kapaliny</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs7-plyny">
-                <div class="card">
-                    <span class="badge badge-zs">7. ročník</span>
-                    <h2>Mechanické vlastnosti plynů</h2>
-                    <p>Plyny nemají stálý objem ani tvar. Snadno se stlačují a rozpínají.</p>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové pojmy</h4>
-                        <ul>
-                            <li><strong>Atmosferický tlak</strong>: tlak vzduchu na zemský povrch ≈ 101 325 Pa (měříme barometrem)</li>
-                            <li><strong>Boyleův-Mariottův zákon</strong>: p · V = konst. (při stálé teplotě)</li>
-                            <li>Zvýšením teploty plyn <strong>roztahuje</strong>, snížením <strong>smršťuje</strong></li>
-                            <li><strong>Aerodynamický vztlak</strong>: proud vzduchu vytváří sílu – základ létání</li>
-                        </ul>
-                    </div>
-                    <div class="example-box">
-                        <strong>🌬️ Pumpa na kolo:</strong> Stlačuješ vzduch (snižuješ V) → roste tlak → vzduch proudí do pneumatiky.
-                    </div>
-                </div>
-            </section>
-
-            <!-- 8. ročník -->
-            <h2 style="color: var(--zs-color); font-size:1.5rem; margin: 30px 0 10px;">📙 8. ročník</h2>
-
-            <section id="zs8-veliciny">
-                <div class="card">
-                    <span class="badge badge-zs">8. ročník</span>
-                    <h2>Fyzikální veličiny a jednotky (opakování a rozšíření)</h2>
-                    <table class="physics-table">
-                        <tr><th>Veličina</th><th>Značka</th><th>Jednotka</th><th>Přístroj</th></tr>
-                        <tr><td>Délka</td><td>l, s</td><td>m</td><td>Pravítko, pásmo</td></tr>
-                        <tr><td>Hmotnost</td><td>m</td><td>kg</td><td>Váha</td></tr>
-                        <tr><td>Čas</td><td>t</td><td>s</td><td>Stopky, hodiny</td></tr>
-                        <tr><td>Teplota</td><td>T, t</td><td>K, °C</td><td>Teploměr</td></tr>
-                        <tr><td>El. proud</td><td>I</td><td>A</td><td>Ampérmetr</td></tr>
-                        <tr><td>Napětí</td><td>U</td><td>V</td><td>Voltmetr</td></tr>
-                        <tr><td>Síla</td><td>F</td><td>N</td><td>Siloměr</td></tr>
-                    </table>
-                </div>
-            </section>
-
-            <section id="zs8-prace">
-                <div class="card">
-                    <span class="badge badge-zs">8. ročník</span>
-                    <h2>Práce a energie</h2>
-                    <div class="formula">W = F · s &nbsp;&nbsp; [J = N · m]</div>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">E_k = ½ · m · v²</span><span class="formula-label">Kinetická energie</span></div>
-                        <div><span class="formula-small">E_p = m · g · h</span><span class="formula-label">Potenciální energie</span></div>
-                        <div><span class="formula-small">P = W / t [W]</span><span class="formula-label">Výkon</span></div>
-                        <div><span class="formula-small">η = W_užit / W_dodaná</span><span class="formula-label">Účinnost</span></div>
-                    </div>
-                    <div class="key-facts">
-                        <h4>📌 Zákon zachování energie</h4>
-                        <ul>
-                            <li>Energie se nemůže ztratit ani vzniknout z ničeho</li>
-                            <li>Mění pouze svou formu (mechanická ↔ tepelná ↔ elektrická...)</li>
-                            <li>E_celková = E_k + E_p = konst. (bez tření)</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs8-teplo">
-                <div class="card">
-                    <span class="badge badge-zs">8. ročník</span>
-                    <h2>Vnitřní energie a teplo</h2>
-                    <div class="formula">Q = m · c · Δt</div>
-                    <table class="physics-table">
-                        <tr><th>Veličina</th><th>Popis</th><th>Jednotka</th></tr>
-                        <tr><td>Q</td><td>Teplo (přijaté/odevzdané)</td><td>J</td></tr>
-                        <tr><td>m</td><td>Hmotnost látky</td><td>kg</td></tr>
-                        <tr><td>c</td><td>Měrná tepelná kapacita</td><td>J/(kg·K)</td></tr>
-                        <tr><td>Δt</td><td>Změna teploty</td><td>°C nebo K</td></tr>
-                    </table>
-                    <div class="key-facts">
-                        <h4>📌 Měrné tepelné kapacity</h4>
-                        <ul>
-                            <li>Voda: c = 4 186 J/(kg·K) – velmi vysoká!</li>
-                            <li>Hliník: c = 900 J/(kg·K)</li>
-                            <li>Železo: c = 450 J/(kg·K)</li>
-                        </ul>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Kalorimetrická rovnice:</strong> Q_přijaté = Q_odevzdané → m₁ · c₁ · (t_výsl − t₁) = m₂ · c₂ · (t₂ − t_výsl)
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs8-skupenstvi">
-                <div class="card">
-                    <span class="badge badge-zs">8. ročník</span>
-                    <h2>Změna skupenství</h2>
-                    <div class="formula">Q = m · L &nbsp; (skupenské teplo)</div>
-                    <table class="physics-table">
-                        <tr><th>Přechod</th><th>Název</th><th>Teplo</th></tr>
-                        <tr><td>Pevné → Kapalné</td><td>Tání</td><td>přijímá</td></tr>
-                        <tr><td>Kapalné → Pevné</td><td>Tuhnutí</td><td>odevzdává</td></tr>
-                        <tr><td>Kapalné → Plynné</td><td>Var / odpařování</td><td>přijímá</td></tr>
-                        <tr><td>Plynné → Kapalné</td><td>Kondenzace</td><td>odevzdává</td></tr>
-                        <tr><td>Pevné → Plynné</td><td>Sublimace</td><td>přijímá</td></tr>
-                    </table>
-                    <div class="example-box">
-                        <strong>❄️ Proč tání ledu chladí nápoj?</strong> Led při tání přijímá skupenské teplo (L) z okolí → okolí se ochladí.
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs8-naboj">
-                <div class="card">
-                    <span class="badge badge-zs">8. ročník</span>
-                    <h2>Elektrický náboj a elektrické pole</h2>
-                    <div class="formula">F = k · q₁ · q₂ / r² &nbsp; (Coulombův zákon)</div>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové pojmy</h4>
-                        <ul>
-                            <li>Základní jednotka náboje: <strong>Coulomb (C)</strong></li>
-                            <li>Elektrony: záporný náboj (−e), protony: kladný náboj (+e)</li>
-                            <li>Stejné náboje se odpuzují, opačné přitahují</li>
-                            <li><strong>Elektrické pole</strong> = oblast prostoru, kde působí elektrická síla</li>
-                            <li><strong>Elektrické napětí</strong> U [V] = práce na přesunutí náboje</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs8-proud">
-                <div class="card">
-                    <span class="badge badge-zs">8. ročník</span>
-                    <h2>Elektrický proud (8. ročník – rozšíření)</h2>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">I = Q / t</span><span class="formula-label">Definice proudu</span></div>
-                        <div><span class="formula-small">U = I · R</span><span class="formula-label">Ohmův zákon</span></div>
-                        <div><span class="formula-small">P = U · I = I²·R</span><span class="formula-label">Elektrický výkon</span></div>
-                        <div><span class="formula-small">W = P · t = U·I·t</span><span class="formula-label">Spotřebovaná energie</span></div>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Odpory v obvodu:</strong><br>
-                        Sériové: R_celk = R₁ + R₂ + ...<br>
-                        Paralelní: 1/R_celk = 1/R₁ + 1/R₂ + ...
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs8-zvuk">
-                <div class="card">
-                    <span class="badge badge-zs">8. ročník</span>
-                    <h2>Zvukové jevy</h2>
-                    <p>Zvuk je mechanické vlnění – podélné vlnění šířící se v látkovém prostředí.</p>
-                    <div class="formula">v = f · λ &nbsp;&nbsp; (rychlost = frekvence × vlnová délka)</div>
-                    <table class="physics-table">
-                        <tr><th>Prostředí</th><th>Rychlost zvuku</th></tr>
-                        <tr><td>Vzduch (20°C)</td><td>343 m/s</td></tr>
-                        <tr><td>Voda</td><td>~1480 m/s</td></tr>
-                        <tr><td>Ocel</td><td>~5000 m/s</td></tr>
-                        <tr><td>Vakuum</td><td>0 (nešíří se!)</td></tr>
-                    </table>
-                    <div class="key-facts">
-                        <h4>📌 Vlastnosti zvuku</h4>
-                        <ul>
-                            <li><strong>Výška</strong>: závisí na frekvenci (Hz) – čím více, tím výšší tón</li>
-                            <li><strong>Hlasitost</strong>: závisí na amplitudě – měří se v decibelech (dB)</li>
-                            <li><strong>Slyšitelné pásmo</strong>: 20 Hz – 20 000 Hz</li>
-                            <li><strong>Ultrazvuk</strong>: nad 20 kHz (např. sonografie, netopýři)</li>
-                            <li><strong>Infrazvuk</strong>: pod 20 Hz (zemětřesení, velryby)</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 9. ročník -->
-            <h2 style="color: var(--zs-color); font-size:1.5rem; margin: 30px 0 10px;">📕 9. ročník</h2>
-
-            <section id="zs9-elmag">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Elektromagnetické jevy</h2>
-                    <p><strong>Elektromagnetická indukce</strong>: Pohybem magnetu v blízkosti vodiče (nebo naopak) vzniká elektrické napětí.</p>
-                    <div class="formula">U_i = −N · ΔΦ/Δt &nbsp; (Faradayův zákon)</div>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové pojmy</h4>
-                        <ul>
-                            <li><strong>Magnetický indukční tok Φ</strong> [Wb] = B · S · cos α</li>
-                            <li><strong>Generátor</strong>: přeměňuje mechanickou energii na elektrickou</li>
-                            <li><strong>Lenzův zákon</strong>: Indukovaný proud působí proti příčině, která ho vyvolala</li>
-                            <li><strong>Transformátor</strong>: mění napětí střídavého proudu (U₁/U₂ = N₁/N₂)</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs9-stridavy">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Střídavý proud</h2>
-                    <p>Střídavý proud (AC) periodicky mění směr. V ČR: frekvence 50 Hz, napětí 230 V (efektivní hodnota).</p>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">f = 50 Hz</span><span class="formula-label">Frekvence v ČR</span></div>
-                        <div><span class="formula-small">U = 230 V</span><span class="formula-label">Síťové napětí</span></div>
-                        <div><span class="formula-small">U_max = U · √2</span><span class="formula-label">Maximální napětí</span></div>
-                        <div><span class="formula-small">T = 1/f = 0,02 s</span><span class="formula-label">Perioda</span></div>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Výhoda střídavého proudu:</strong> Lze transformovat na jiné napětí. Proto se přenos elektřiny provádí při vysokém napětí (ztráty = I²·R se sníží).
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs9-vedeni">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Vedení el. proudu v kapalinách a plynech</h2>
-                    <table class="physics-table">
-                        <tr><th>Prostředí</th><th>Nositelé náboje</th><th>Příklad využití</th></tr>
-                        <tr><td>Kapaliny (elektrolyty)</td><td>Kladné a záporné ionty</td><td>Akumulátor, galvanizace, elektrolýza vody</td></tr>
-                        <tr><td>Plyny (za normálních podmínek)</td><td>Nejsou – izolanty</td><td>—</td></tr>
-                        <tr><td>Ionizované plyny (plazma)</td><td>Ionty a elektrony</td><td>Blesk, výbojka, neonka, plazmová obrazovka</td></tr>
-                    </table>
-                    <div class="example-box">
-                        <strong>⚡ Blesk:</strong> Ionizovaný vzduch mezi mrakem a zemí vede proud → záblesk světla, rachot hromu.
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs9-zareni">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Elektromagnetické záření</h2>
-                    <p>Elektromagnetické záření je vlnění elektrického a magnetického pole. Šíří se vakuem rychlostí světla c ≈ 3 · 10⁸ m/s.</p>
-                    <table class="physics-table">
-                        <tr><th>Typ záření</th><th>Vlnová délka</th><th>Využití</th></tr>
-                        <tr><td>Rádiové vlny</td><td>&gt; 1 mm</td><td>Rádio, TV, Wi-Fi</td></tr>
-                        <tr><td>Mikrovlny</td><td>1 mm – 1 m</td><td>Mikrovlnná trouba, radar</td></tr>
-                        <tr><td>Infračervené</td><td>700 nm – 1 mm</td><td>Dálkové ovladače, termovizní kamery</td></tr>
-                        <tr><td>Viditelné světlo</td><td>380 – 700 nm</td><td>Vidění, optika</td></tr>
-                        <tr><td>Ultrafialové</td><td>10 – 380 nm</td><td>Sterilizace, opálení</td></tr>
-                        <tr><td>Rentgenové (X)</td><td>0,01 – 10 nm</td><td>Lékařství, bezpečnostní skenery</td></tr>
-                        <tr><td>Gama záření</td><td>&lt; 0,01 nm</td><td>Jaderná medicína, sterilizace</td></tr>
-                    </table>
-                </div>
-            </section>
-
-            <section id="zs9-sireni">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Přímočaré šíření světla</h2>
-                    <p>Ve stejnorodém prostředí se světlo šíří přímočaře. Rychlost světla ve vakuu: <strong>c = 3 · 10⁸ m/s</strong>.</p>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové jevy</h4>
-                        <ul>
-                            <li><strong>Stín</strong>: oblast za neprůsvitným tělesem, kam světlo nedopadne</li>
-                            <li><strong>Polostín</strong>: oblast částečného zastínění (při rozsáhlém zdroji)</li>
-                            <li><strong>Zatmění Slunce</strong>: Měsíc zakryje Slunce – polostín a stín na Zemi</li>
-                            <li><strong>Zatmění Měsíce</strong>: Měsíc vstoupí do stínu Země</li>
-                            <li>Dírková komora: obraz je otočený a menší</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs9-odraz">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Odraz světla</h2>
-                    <div class="formula">α = β &nbsp; (úhel dopadu = úhel odrazu)</div>
-                    <div class="key-facts">
-                        <h4>📌 Zrcadla</h4>
-                        <ul>
-                            <li><strong>Rovné zrcadlo</strong>: obraz přímý, stejně velký, zdánlivý (za zrcadlem)</li>
-                            <li><strong>Dutá (konkávní) zrcadla</strong>: soustřeďují světlo, obraz závisí na vzdálenosti předmětu</li>
-                            <li><strong>Vypuklá (konvexní) zrcadla</strong>: rozptylují světlo, vždy menší zdánlivý obraz – použití: zpětná zrcátka aut</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs9-lom">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Lom světla</h2>
-                    <p>Při přechodu mezi prostředími různé optické hustoty se světlo láme (mění směr).</p>
-                    <div class="formula">n = c / v &nbsp; (index lomu)</div>
-                    <div class="key-facts">
-                        <h4>📌 Pravidla</h4>
-                        <ul>
-                            <li>Při přechodu do hustšího prostředí (n₂ &gt; n₁) se paprsek přiblíží k normále</li>
-                            <li>Při přechodu do řidšího prostředí se paprsek vzdálí od normály</li>
-                            <li><strong>Úplný odraz</strong>: při dopadu nad kritickým úhlem – základ optického vlákna</li>
-                        </ul>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Čočky:</strong><br>
-                        Spojná (konvexní): soustřeďuje světlo → lupa, objektiv fotoaparátu<br>
-                        Rozptylná (konkávní): rozptyluje světlo → brýle pro krátkozraké
-                    </div>
-                </div>
-            </section>
-
-            <section id="zs9-energie">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Energie a její přeměny</h2>
-                    <div class="key-facts">
-                        <h4>📌 Formy energie</h4>
-                        <ul>
-                            <li>Mechanická (kinetická + potenciální)</li>
-                            <li>Tepelná (vnitřní energie)</li>
-                            <li>Elektrická</li>
-                            <li>Světelná (elektromagnetická)</li>
-                            <li>Chemická (v palivech, bateriích)</li>
-                            <li>Jaderná (štěpení, fúze)</li>
-                        </ul>
-                    </div>
-                    <table class="physics-table">
-                        <tr><th>Přeměna</th><th>Příklad</th></tr>
-                        <tr><td>Chemická → Tepelná</td><td>Spalování uhlí, svíčka</td></tr>
-                        <tr><td>Elektrická → Světelná + Tepelná</td><td>Žárovka</td></tr>
-                        <tr><td>Mechanická → Elektrická</td><td>Generátor, dynamo</td></tr>
-                        <tr><td>Jaderná → Tepelná → El.</td><td>Jaderná elektrárna</td></tr>
-                        <tr><td>Světelná → Elektrická</td><td>Solární panel</td></tr>
-                    </table>
-                </div>
-            </section>
-
-            <section id="zs9-vesmir">
-                <div class="card">
-                    <span class="badge badge-zs">9. ročník</span>
-                    <h2>Země a vesmír</h2>
-                    <table class="physics-table">
-                        <tr><th>Objekt</th><th>Zajímavé číslo</th></tr>
-                        <tr><td>Vzdálenost Země–Slunce</td><td>150 mil. km = 1 AU</td></tr>
-                        <tr><td>Světelný rok</td><td>9,46 · 10¹⁵ m</td></tr>
-                        <tr><td>Průměr Slunce</td><td>1 392 000 km</td></tr>
-                        <tr><td>Oběžná doba Země kolem Slunce</td><td>365,25 dní</td></tr>
-                        <tr><td>Vzdálenost k nejbližší hvězdě (Proxima Centauri)</td><td>4,24 světelných let</td></tr>
-                    </table>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové pojmy</h4>
-                        <ul>
-                            <li><strong>Sluneční soustava</strong>: Slunce + 8 planet (Merkur, Venuše, Země, Mars, Jupiter, Saturn, Uran, Neptun)</li>
-                            <li><strong>Hvězda</strong>: plazma s jadernou fúzí (Slunce)</li>
-                            <li><strong>Galaxie</strong>: miliarda hvězd (Mléčná dráha – náš domov)</li>
-                            <li><strong>Velký třesk</strong>: vznik vesmíru před ~13,8 miliardami let</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-        </div><!-- /content-zs -->
-
-        <!-- ===================== OBSAH SŠ ===================== -->
-        <div id="content-ss" class="hidden">
-
-            <section id="ss1-veliciny">
-                <div class="card">
-                    <span class="badge badge-ss">1. ROČNÍK</span>
-                    <h2>1. Fyzikální veličiny a jednotky</h2>
-                    <p>Fyzika popisuje svět pomocí měřitelných vlastností. Základem je mezinárodní soustava <strong>SI</strong>.</p>
-                    <table class="physics-table">
-                        <tr><th>Základní veličina</th><th>Jednotka</th><th>Značka</th></tr>
-                        <tr><td>Délka</td><td>metr</td><td>m</td></tr>
-                        <tr><td>Hmotnost</td><td>kilogram</td><td>kg</td></tr>
-                        <tr><td>Čas</td><td>sekunda</td><td>s</td></tr>
-                        <tr><td>El. proud</td><td>ampér</td><td>A</td></tr>
-                        <tr><td>Teplota</td><td>kelvin</td><td>K</td></tr>
-                        <tr><td>Látkové množství</td><td>mol</td><td>mol</td></tr>
-                        <tr><td>Svítivost</td><td>kandela</td><td>cd</td></tr>
-                    </table>
-                    <div class="formula">1 m/s = 3,6 km/h</div>
-                    <div class="example-box">
-                        <strong>💡 Tip pro studenty:</strong> U každého příkladu si nejdříve vypiš zadané hodnoty a převeď je na základní jednotky SI. Je to 50 % úspěchu u testu!
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss1-kinematika">
-                <div class="card">
-                    <span class="badge badge-ss">1. ROČNÍK</span>
-                    <h2>2. Kinematika hmotného bodu</h2>
-                    <p>Zkoumáme, jak se tělesa pohybují (dráha, rychlost, zrychlení), aniž bychom řešili, proč se hýbou.</p>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">v = s / t</span><span class="formula-label">Průměrná rychlost</span></div>
-                        <div><span class="formula-small">a = Δv / Δt</span><span class="formula-label">Zrychlení</span></div>
-                        <div><span class="formula-small">s = v₀t + ½at²</span><span class="formula-label">Dráha při zrychlení</span></div>
-                        <div><span class="formula-small">v = v₀ + at</span><span class="formula-label">Rychlost při zrychlení</span></div>
-                    </div>
-                    <h3>Volný pád</h3>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">h = ½ · g · t²</span><span class="formula-label">Výška pádu</span></div>
-                        <div><span class="formula-small">v = g · t</span><span class="formula-label">Rychlost při pádu</span></div>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 g = 9,81 m/s² ≈ 10 m/s²</strong> (gravitační zrychlení na Zemi)
-                    </div>
-                    <div class="example-box">
-                        <strong>🚗 Příklad:</strong> Těleso padá 3 s. Výška: h = ½ · 10 · 3² = 45 m. Rychlost při dopadu: v = 10 · 3 = 30 m/s.
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss1-dynamika">
-                <div class="card">
-                    <span class="badge badge-ss">1. ROČNÍK</span>
-                    <h2>3. Dynamika – Newtonovy zákony</h2>
-                    <div class="formula">F = m · a &nbsp;&nbsp; (2. Newtonův zákon)</div>
-                    <div class="key-facts">
-                        <h4>📌 Tři Newtonovy zákony</h4>
-                        <ul>
-                            <li><strong>1. zákon (setrvačnosti):</strong> Těleso zůstane v klidu nebo rovnoměrném pohybu, pokud na něj nepůsobí výsledná síla.</li>
-                            <li><strong>2. zákon (síly):</strong> F = m · a — zrychlení je přímo úměrné síle a nepřímo úměrné hmotnosti.</li>
-                            <li><strong>3. zákon (akce a reakce):</strong> Síly vždy působí ve dvojicích, stejně velkých, opačného směru.</li>
-                        </ul>
-                    </div>
-                    <h3>Hybnost a impuls síly</h3>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">p = m · v</span><span class="formula-label">Hybnost [kg·m/s]</span></div>
-                        <div><span class="formula-small">F · t = Δp</span><span class="formula-label">Impuls síly</span></div>
-                    </div>
-                    <div class="tip-box">
-                        <strong>💡 Zákon zachování hybnosti:</strong> V izolované soustavě zůstává celková hybnost konstantní.
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss1-tekutiny">
-                <div class="card">
-                    <span class="badge badge-ss">1. ROČNÍK</span>
-                    <h2>4. Mechanika tekutin</h2>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">p = F / S</span><span class="formula-label">Tlak [Pa = N/m²]</span></div>
-                        <div><span class="formula-small">p = ρ · g · h</span><span class="formula-label">Hydrostatický tlak</span></div>
-                        <div><span class="formula-small">F_A = ρ · V · g</span><span class="formula-label">Archimédova síla</span></div>
-                        <div><span class="formula-small">S₁·v₁ = S₂·v₂</span><span class="formula-label">Rovnice kontinuity</span></div>
-                    </div>
-                    <div class="example-box">
-                        <strong>🔧 Bernoulliova rovnice:</strong> p + ½ρv² + ρgh = konst. — základ aerodynamického vztlaku letadel!
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss2-mol">
-                <div class="card">
-                    <span class="badge badge-ss">2. ROČNÍK</span>
-                    <h2>5. Molekulová fyzika a termika</h2>
-                    <p>Zkoumá látky na úrovni molekul. Teplota je míra průměrné kinetické energie částic.</p>
-                    <div class="formula">Q = m · c · Δt</div>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">pV = nRT</span><span class="formula-label">Stavová rovnice ideálního plynu</span></div>
-                        <div><span class="formula-small">R = 8,314 J/(mol·K)</span><span class="formula-label">Molární plynová konstanta</span></div>
-                        <div><span class="formula-small">p₁V₁/T₁ = p₂V₂/T₂</span><span class="formula-label">Kombinovaný plynový zákon</span></div>
-                        <div><span class="formula-small">W = Q₁ − Q₂</span><span class="formula-label">Tepelný stroj</span></div>
-                    </div>
-                    <div class="key-facts">
-                        <h4>📌 Izodějové změny plynu</h4>
-                        <ul>
-                            <li><strong>Izotermická</strong> (T = konst.): p · V = konst. (Boyleův-Mariottův zákon)</li>
-                            <li><strong>Izobarická</strong> (p = konst.): V / T = konst. (Gay-Lussacův zákon)</li>
-                            <li><strong>Izochorická</strong> (V = konst.): p / T = konst. (Charlesův zákon)</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss2-kmitani">
-                <div class="card">
-                    <span class="badge badge-ss">2. ROČNÍK</span>
-                    <h2>6. Kmitání a vlnění</h2>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">T = 1 / f</span><span class="formula-label">Perioda [s]</span></div>
-                        <div><span class="formula-small">f [Hz] = počet kmitů/s</span><span class="formula-label">Frekvence</span></div>
-                        <div><span class="formula-small">v = f · λ</span><span class="formula-label">Rychlost vlnění</span></div>
-                        <div><span class="formula-small">T = 2π√(l/g)</span><span class="formula-label">Délkové kyvadlo</span></div>
-                    </div>
-                    <div class="key-facts">
-                        <h4>📌 Typy vlnění</h4>
-                        <ul>
-                            <li><strong>Příčné vlnění</strong>: kmitání ⊥ na směr šíření (světlo, vlny na vodě)</li>
-                            <li><strong>Podélné vlnění</strong>: kmitání ∥ na směr šíření (zvuk)</li>
-                            <li><strong>Odraz, lom, interference, difrakce</strong>: základní jevy vlnění</li>
-                            <li><strong>Stojaté vlnění</strong>: superpozice dvou vln opačného směru</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss3-elektro">
-                <div class="card">
-                    <span class="badge badge-ss">3. ROČNÍK</span>
-                    <h2>7. Elektřina a elektrický proud</h2>
-                    <div class="formula">U = I · R &nbsp;&nbsp; (Ohmův zákon)</div>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">R = ρ · l / S</span><span class="formula-label">Odpor vodiče</span></div>
-                        <div><span class="formula-small">P = U · I = I²R</span><span class="formula-label">Elektrický výkon</span></div>
-                        <div><span class="formula-small">W = P · t = U·I·t</span><span class="formula-label">Elektrická energie [J]</span></div>
-                        <div><span class="formula-small">Q = C · U</span><span class="formula-label">Kondenzátor [C = F]</span></div>
-                    </div>
-                    <div class="key-facts">
-                        <h4>📌 Kirchhoffovy zákony</h4>
-                        <ul>
-                            <li><strong>1. KZ (uzlový)</strong>: Součet proudů přitékajících do uzlu = součet proudů odtékajících</li>
-                            <li><strong>2. KZ (smyčkový)</strong>: Součet napětí ve smyčce = 0</li>
-                        </ul>
-                    </div>
-                    <div class="example-box">
-                        <strong>⚡ Tip k pochopení:</strong> Napětí (U) = tlak vody, proud (I) = množství vody, odpor (R) = zúžení trubky.
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss3-magn">
-                <div class="card">
-                    <span class="badge badge-ss">3. ROČNÍK</span>
-                    <h2>8. Magnetické pole</h2>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">F = B · I · l</span><span class="formula-label">Síla na vodič v mag. poli</span></div>
-                        <div><span class="formula-small">F = B · q · v</span><span class="formula-label">Lorentzova síla</span></div>
-                        <div><span class="formula-small">B [T] – Magnetická indukce</span><span class="formula-label">Tesla</span></div>
-                        <div><span class="formula-small">U_i = −N · ΔΦ/Δt</span><span class="formula-label">Indukované napětí</span></div>
-                    </div>
-                    <div class="key-facts">
-                        <h4>📌 Klíčové pojmy</h4>
-                        <ul>
-                            <li><strong>Pravotočivé pravidlo</strong>: palec = směr proudu, prsty = orientace mag. pole</li>
-                            <li><strong>Lenzův zákon</strong>: indukovaný proud brání změně mag. toku</li>
-                            <li><strong>Transformátor</strong>: U₁/U₂ = N₁/N₂</li>
-                            <li><strong>Elektromotor</strong>: elektrická → mechanická energie</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss4-optika">
-                <div class="card">
-                    <span class="badge badge-ss">4. ROČNÍK</span>
-                    <h2>9. Optika</h2>
-                    <div class="formula-grid">
-                        <div><span class="formula-small">n = c / v</span><span class="formula-label">Index lomu</span></div>
-                        <div><span class="formula-small">n₁sinα = n₂sinβ</span><span class="formula-label">Snellův zákon</span></div>
-                        <div><span class="formula-small">1/f = 1/a + 1/b</span><span class="formula-label">Zobrazovací rovnice</span></div>
-                        <div><span class="formula-small">D = 1/f [dpt]</span><span class="formula-label">Optická mohutnost</span></div>
-                    </div>
-                    <div class="key-facts">
-                        <h4>📌 Znaménková konvence</h4>
-                        <ul>
-                            <li>a = vzdálenost předmětu, b = vzdálenost obrazu, f = ohnisková vzdálenost</li>
-                            <li>Skutečný obraz: b &gt; 0; zdánlivý obraz: b &lt; 0</li>
-                            <li>Zvětšení: z = b / a</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss4-relativita">
-                <div class="card">
-                    <span class="badge badge-ss">4. ROČNÍK</span>
-                    <h2>10. Speciální teorie relativity</h2>
-                    <p>Při rychlostech blízkých rychlosti světla platí relativistické efekty.</p>
-                    <div class="formula">E = m · c² &nbsp;&nbsp; (c = 3 · 10⁸ m/s)</div>
-                    <div class="key-facts">
-                        <h4>📌 Relativistické efekty</h4>
-                        <ul>
-                            <li><strong>Dilatace času</strong>: pohybující se hodiny jdou pomaleji</li>
-                            <li><strong>Kontrakce délky</strong>: pohybující se těleso je kratší ve směru pohybu</li>
-                            <li><strong>Relativistická hmotnost</strong>: roste s rychlostí</li>
-                            <li>Rychlost světla c je stejná pro všechny pozorovatele</li>
-                        </ul>
-                    </div>
-                    <div class="example-box">
-                        <strong>🚀 Šílený fakt:</strong> V 1 kg hmoty je ukryto E = 1 · (3·10⁸)² = 9 · 10¹⁶ J energie. To je víc než celoroční spotřeba elektřiny ČR!
-                    </div>
-                </div>
-            </section>
-
-            <section id="ss4-mikro">
-                <div class="card">
-                    <span class="badge badge-ss">4. ROČNÍK</span>
-                    <h2>11. Fyzika mikrosvěta</h2>
-                    <div class="key-facts">
-                        <h4>📌 Atom a jádro</h4>
-                        <ul>
-                            <li><strong>Atom</strong>: jádro (protony + neutrony) + elektronový obal</li>
-                            <li><strong>Protonové číslo (Z)</strong>: počet protonů = určuje prvek</li>
-                            <li><strong>Nukleonové číslo (A)</strong>: protony + neutrony</li>
-                            <li><strong>Izotopy</strong>: stejný Z, různý počet neutronů</li>
-                        </ul>
-                    </div>
-                    <div class="key-facts">
-                        <h4>📌 Radioaktivita</h4>
-                        <ul>
-                            <li><strong>Záření α</strong>: jádro ⁴He, malý dosah, velká ionizace</li>
-                            <li><strong>Záření β</strong>: elektron nebo pozitron, střední dosah</li>
-                            <li><strong>Záření γ</strong>: elektromagnetické záření, velký dosah, malá ionizace</li>
-                            <li><strong>Poločas rozpadu T½</strong>: čas, za který se rozpadne polovina jader</li>
-                        </ul>
-                    </div>
-                    <div class="formula">E = h · f &nbsp; (h = 6,626 · 10⁻³⁴ J·s – Planckova konstanta)</div>
-                    <div class="tip-box">
-                        <strong>💡 Fotoefekt:</strong> Světlo dopadá na kov → vyráží elektrony. Einstein za to dostal Nobelovu cenu!
-                    </div>
-                </div>
-            </section>
-
-        </div><!-- /content-ss -->
-
-    </main>
-</div>
-
+<!-- FOOTER -->
 <footer>
-    <p>⚛️ Fyzika do Kapsy &nbsp;|&nbsp; © 2026 Digitální učebnice fyziky &nbsp;|&nbsp; Vytvořeno pro studenty ZŠ a SŠ</p>
+    <p>⚛️ Fyzika do Kapsy | © 2026 Digitální učebnice fyziky | Vytvořeno pro studenty ZŠ a SŠ</p>
 </footer>
 
 <script>
-    function showSection(type) {
-        document.getElementById('sidebar-zs').classList.add('hidden');
-        document.getElementById('sidebar-ss').classList.add('hidden');
-        document.getElementById('content-zs').classList.add('hidden');
-        document.getElementById('content-ss').classList.add('hidden');
-        document.getElementById('welcome-msg').classList.add('hidden');
+    function showSection(level) {
+        // Hide welcome
+        document.getElementById('welcome').style.display = 'none';
+
+        // Hide all sidebars and contents
+        document.querySelectorAll('.sidebar').forEach(el => {
+            el.style.display = 'none';
+            el.classList.remove('active');
+        });
+        document.querySelectorAll('.content').forEach(el => {
+            el.style.display = 'none';
+            el.classList.remove('active');
+        });
+
+        // Show requested
+        const sidebar = document.getElementById('sidebar-' + level);
+        const content = document.getElementById('content-' + level);
+        sidebar.style.display = 'flex';
+        sidebar.classList.add('active');
+        content.style.display = 'block';
+        content.classList.add('active');
+
+        // Add content-open to body (fixes footer)
         document.body.classList.add('content-open');
 
-        if(type === 'zs') {
-            document.getElementById('sidebar-zs').classList.remove('hidden');
-            document.getElementById('content-zs').classList.remove('hidden');
-        } else {
-            document.getElementById('sidebar-ss').classList.remove('hidden');
-            document.getElementById('content-ss').classList.remove('hidden');
-        }
-
-        window.scrollTo({ top: document.querySelector('.hero').offsetHeight - 20, behavior: 'smooth' });
+        // Smooth scroll below hero
+        document.getElementById('mainLayout').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 </script>
-
 </body>
 </html>
